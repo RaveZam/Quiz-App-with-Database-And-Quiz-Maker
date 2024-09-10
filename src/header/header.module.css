@@ -1,0 +1,47 @@
+.header {
+  width: 100%;
+  height: 10vh;
+  background-color: rgba(250, 250, 250, 0.89);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+}
+
+.title {
+  font-size: 4vw;
+  padding: 20px;
+}
+
+.accountsection {
+  /* background-color: red; */
+  align-items: center;
+  display: flex;
+  margin-bottom: 16px;
+  margin-right: 20px;
+}
+
+.btn {
+  padding: 4px 12px;
+  /* border: solid 1px black; */
+  border: none;
+  background-color: white;
+  margin: 0 8px;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.searchbar {
+  padding: 8px;
+  font-size: 1.2vw;
+  border-radius: 50px;
+  border: none;
+}
+
+.icon {
+  margin-left: 32px;
+  width: 40px;
+  transform: translateY(30%);
+}
