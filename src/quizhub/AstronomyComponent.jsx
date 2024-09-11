@@ -1,7 +1,13 @@
+import { useActionData } from "react-router-dom";
 import styles from "./quizhub.module.css";
+import { useState } from "react";
 
 export default function AstronomyComponent({ navigate }) {
-  function showprestart() {}
+  const [popup, showpopup] = useState(false);
+
+  function showprestart() {
+    showpopup(true);
+  }
 
   let quizname = "Astronomy Quiz";
 
@@ -21,27 +27,49 @@ export default function AstronomyComponent({ navigate }) {
           <p className={styles.quizdesc}>
             Anything about space and whats beyond the skies.
           </p>
-          <button onClick={() => navigate("/Astronomy")} className={styles.btn}>
+          <button
+            onClick={() => showprestart()}
+            className={`${styles.btn} ${styles.btn1}`}
+          >
             Take Quiz
           </button>
         </div>
       </div>
       {/* ////////// */}
-      <div className={styles.overlay}>
-        <img src="" alt="" /> test test
-        <div className={styles.popup}>
-          <div className={styles.imagewrapper}>
-            <img src="./images/astronomy.webp" alt="" />
-          </div>
-          <div className={styles.popupinfo}>
-            <h1>{quizname}</h1>
-            <span>Made By: Runielle Raven </span>
-            <span className={styles.difficulty}>Difficulty Level: </span>
-            <span>10 Questions </span>
-            <button className={styles.btn}>Play</button>
+      {/* //popup */}
+      {popup ? (
+        <div className={styles.overlay}>
+          <div className={styles.popup}>
+            <div className={styles.imagewrapper}>
+              <img
+                onClick={() => showpopup(false)}
+                className={styles.close}
+                src="./images/cancel.png"
+                alt="cancel"
+              />
+              <img
+                className={styles.popupbg}
+                src="./images/astronomy.webp"
+                alt=""
+              />
+            </div>
+            <div className={styles.popupinfo}>
+              <h1>{quizname}</h1>
+              <span>Made By: Runielle Raven </span>
+              <span className={styles.difficulty}>Difficulty Level: </span>
+              <span>10 Questions </span>
+              <button
+                onClick={() => navigate("/Astronomy")}
+                className={styles.startbtn}
+              >
+                Start Quiz
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }
