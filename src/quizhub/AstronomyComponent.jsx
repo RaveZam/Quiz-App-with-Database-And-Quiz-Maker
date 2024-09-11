@@ -39,7 +39,7 @@ export default function AstronomyComponent({ navigate }) {
       {/* //popup */}
       {popup ? (
         <div className={styles.overlay}>
-          <div className={styles.popup}>
+          <div className={`${styles.popup} ${popup ? styles.slide : ""}`}>
             <div className={styles.imagewrapper}>
               <img
                 onClick={() => showpopup(false)}
