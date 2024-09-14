@@ -4,6 +4,7 @@ import Header from "./header/Header";
 export default function Mainpage() {
   return (
     <>
+      <Header />
       <Quizhub />
     </>
   );

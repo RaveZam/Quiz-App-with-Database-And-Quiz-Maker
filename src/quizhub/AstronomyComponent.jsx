@@ -27,6 +27,7 @@ export default function AstronomyComponent({ navigate }) {
           <p className={styles.quizdesc}>
             Anything about space and whats beyond the skies.
           </p>
+
           <button
             onClick={() => showprestart()}
             className={`${styles.btn} ${styles.btn1}`}
