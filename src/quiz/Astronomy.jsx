@@ -56,56 +56,70 @@ export default function Astronomy() {
     }, 3000);
   }
 
+  const [timerpopup, settimerpopup] = useState(true);
+  const [timer, setTimer] = useState(3);
+  if (timer > 0) {
+    setTimeout(() => {
+      setTimer(timer - 1);
+    }, 1000);
+  } else if (timer == 0 && timerpopup) {
+    settimerpopup(!timerpopup);
+    console.log(timerpopup);
+  }
   return (
     <>
-      <audio ref={hoverSound} src={answerclick} preload="auto" />
-      <audio src={bgmmusic} autoPlay loop />
-
-      <Ingameheader />
-      {/* conditionally irrender yung components if done naba yung quiz or hindi */}
-
-      {finish ? (
-        // result screen
-        <div className={styles.resultscreen}>
-          <h1>{score}</h1>
-        </div>
-      ) : (
-        // quiz screen
-        <div className={styles.AstronomyQuiz}>
-          <div className={styles.questioncontainer}>
-            <h1 className={styles.question}>{currentquestion.questiontext}</h1>
-            <img
-              className={styles.gif}
-              src={currentquestion.gif}
-              alt="questiongif"
-            />
-          </div>
-          <div className={styles.optionscontainer}>
-            <ul className={styles.uloptions}>
-              {currentquestion.options.map((option, index) => (
-                <button
-                  className={`${styles.optionbuttons} ${
-                    styles.optionbuttons1
-                  } ${
-                    showCorrectAnswer
-                      ? currentquestion.correctanswer == option
-                        ? styles.green
-                        : styles.darken
-                      : ""
-                  } `}
-                  onClick={() => {
-                    checkcorrectanswer(option, index);
-                    hoverSound.current.play();
-                  }}
-                  key={index}
-                >
-                  {option}
-                </button>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
+      <h1>{timer}</h1>
     </>
+    // <>
+
+    //   <audio ref={hoverSound} src={answerclick} preload="auto" />
+    //   {/* <audio src={bgmmusic} autoPlay loop /> */}
+
+    //   <Ingameheader />
+    //   {/* conditionally irrender yung components if done naba yung quiz or hindi */}
+
+    //   {finish ? (
+    //     // result screen
+    //     <div className={styles.resultscreen}>
+    //       <h1>{score}</h1>
+    //     </div>
+    //   ) : (
+    //     // quiz screen
+    //     <div className={styles.AstronomyQuiz}>
+    //       <div className={styles.questioncontainer}>
+    //         <h1 className={styles.question}>{currentquestion.questiontext}</h1>
+    //         <img
+    //           className={styles.gif}
+    //           src={currentquestion.gif}
+    //           alt="questiongif"
+    //         />
+    //       </div>
+    //       <div className={styles.optionscontainer}>
+    //         <ul className={styles.uloptions}>
+    //           {currentquestion.options.map((option, index) => (
+    //             <button
+    //               className={`${styles.optionbuttons} ${
+    //                 styles.optionbuttons1
+    //               } ${
+    //                 showCorrectAnswer
+    //                   ? currentquestion.correctanswer == option
+    //                     ? styles.green
+    //                     : styles.darken
+    //                   : ""
+    //               } `}
+    //               onClick={() => {
+    //                 checkcorrectanswer(option, index);
+    //                 hoverSound.current.play();
+    //               }}
+    //               key={index}
+    //             >
+    //               {option}
+    //             </button>
+    //           ))}
+    //         </ul>
+    //       </div>
+    //     </div>
+    //   )}
+    // </>
   );
 }

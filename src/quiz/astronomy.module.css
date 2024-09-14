@@ -81,3 +81,9 @@
 .optionbuttons:hover {
   background-color: rgba(141, 139, 139, 0.533);
 }
+
+h1 {
+  color: white;
+  text-align: center;
+  align-content: center;
+}
