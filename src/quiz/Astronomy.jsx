@@ -3,10 +3,13 @@ import styles from "./astronomy.module.css";
 import Ingameheader from "../header/Ingameheader";
 import answerclick from "/sounds/answerclick.wav";
 import bgmmusic from "/sounds/astronomybgm.mp3";
+import success from "/sounds/success.mp3";
+import fail from "/sounds/fail.mp3";
 
 export default function Astronomy() {
-  const hoverSound = useRef(null);
-  const clicksoundFile = useRef(null);
+  const clicksound = useRef(null);
+  const successsound = useRef(null);
+  const failsound = useRef(null);
 
   const astronomyquestions = [
     {
@@ -35,9 +38,14 @@ export default function Astronomy() {
   const [score, setScore] = useState(0);
   const [finish, setFinished] = useState(false);
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
+  const [isDisabled, setDisabled] = useState(false);
+  const [optionClicked, setOptionClicked] = useState("");
 
-  function checkcorrectanswer(option, index) {
+  function checkcorrectanswer(option) {
     //checks if finished na yung quiz
+
+    setDisabled(true);
+
     if (currentQuestionIndex == astronomyquestions.length - 1) {
       setTimeout(() => {
         setFinished(true);
@@ -46,12 +54,23 @@ export default function Astronomy() {
     //checks if tama yung sagot ni user and sets the score
     if (option == currentquestion.correctanswer) {
       setScore(score + 1);
+      setTimeout(() => {
+        successsound.current.play();
+      }, 3000);
+    } else {
+      setTimeout(() => {
+        failsound.current.play();
+      }, 3000);
     }
     setTimeout(() => {
       setshowCorrectAnswer(true);
+      setOptionClicked(option);
+
       setTimeout(() => {
         setcurrentQuestionIndex(currentQuestionIndex + 1);
         setshowCorrectAnswer(false);
+        setDisabled(false);
+        setOptionClicked(null);
       }, 3000);
     }, 3000);
   }
@@ -64,62 +83,74 @@ export default function Astronomy() {
     }, 1000);
   } else if (timer == 0 && timerpopup) {
     settimerpopup(!timerpopup);
-    console.log(timerpopup);
   }
   return (
     <>
-      <h1>{timer}</h1>
+      {timerpopup ? (
+        <div className={styles.timercontainer}>
+          <h1 className={styles.timer}>{timer == 0 ? "Go!" : timer}</h1>
+        </div>
+      ) : (
+        ""
+      )}
+
+      <audio ref={clicksound} src={answerclick} preload="auto" />
+      <audio ref={successsound} src={success} preload="auto" />
+      <audio ref={failsound} src={fail} preload="auto" />
+      <audio src={bgmmusic} autoPlay loop />
+
+      <Ingameheader />
+      {/* conditionally irrender yung components if done naba yung quiz or hindi */}
+
+      {finish ? (
+        // result screen
+        <div className={styles.resultscreen}>
+          <h1>{score}</h1>
+        </div>
+      ) : (
+        // quiz screen
+        <div className={styles.AstronomyQuiz}>
+          <div className={styles.questioncontainer}>
+            <h1 className={styles.question}>{currentquestion.questiontext}</h1>
+            <img
+              className={styles.gif}
+              src={currentquestion.gif}
+              alt="questiongif"
+            />
+          </div>
+          <div className={styles.optionscontainer}>
+            <ul className={styles.uloptions}>
+              {currentquestion.options.map((option, index) => (
+                <button
+                  disabled={isDisabled}
+                  className={`${styles.optionbuttons} ${
+                    styles.optionbuttons1
+                  } ${
+                    showCorrectAnswer
+                      ? currentquestion.correctanswer == option
+                        ? styles.green
+                        : styles.darken
+                      : ""
+                  } ${
+                    optionClicked == option &&
+                    optionClicked !== currentquestion.correctanswer
+                      ? styles.red
+                      : ""
+                  }
+                  `}
+                  onClick={() => {
+                    checkcorrectanswer(option, index);
+                    clicksound.current.play();
+                  }}
+                  key={index}
+                >
+                  {option}
+                </button>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </>
-    // <>
-
-    //   <audio ref={hoverSound} src={answerclick} preload="auto" />
-    //   {/* <audio src={bgmmusic} autoPlay loop /> */}
-
-    //   <Ingameheader />
-    //   {/* conditionally irrender yung components if done naba yung quiz or hindi */}
-
-    //   {finish ? (
-    //     // result screen
-    //     <div className={styles.resultscreen}>
-    //       <h1>{score}</h1>
-    //     </div>
-    //   ) : (
-    //     // quiz screen
-    //     <div className={styles.AstronomyQuiz}>
-    //       <div className={styles.questioncontainer}>
-    //         <h1 className={styles.question}>{currentquestion.questiontext}</h1>
-    //         <img
-    //           className={styles.gif}
-    //           src={currentquestion.gif}
-    //           alt="questiongif"
-    //         />
-    //       </div>
-    //       <div className={styles.optionscontainer}>
-    //         <ul className={styles.uloptions}>
-    //           {currentquestion.options.map((option, index) => (
-    //             <button
-    //               className={`${styles.optionbuttons} ${
-    //                 styles.optionbuttons1
-    //               } ${
-    //                 showCorrectAnswer
-    //                   ? currentquestion.correctanswer == option
-    //                     ? styles.green
-    //                     : styles.darken
-    //                   : ""
-    //               } `}
-    //               onClick={() => {
-    //                 checkcorrectanswer(option, index);
-    //                 hoverSound.current.play();
-    //               }}
-    //               key={index}
-    //             >
-    //               {option}
-    //             </button>
-    //           ))}
-    //         </ul>
-    //       </div>
-    //     </div>
-    //   )}
-    // </>
   );
 }

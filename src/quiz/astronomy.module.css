@@ -82,8 +82,34 @@
   background-color: rgba(141, 139, 139, 0.533);
 }
 
-h1 {
+.optionbuttons:disabled {
+  color: black;
+  cursor: not-allowed; /* Optional: Change the cursor to show it's disabled */
+}
+
+.red {
+  background-color: red !important;
+  opacity: 1;
+  transform: scale(1.05) !important;
+}
+
+.timercontainer {
+  display: flex;
+  backdrop-filter: blur(10px);
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  color: white;
+  z-index: 100;
+}
+
+.timer {
+  margin: auto auto;
+  font-size: 11vw;
+}
+
+/* h1 {
   color: white;
   text-align: center;
   align-content: center;
-}
+} */
