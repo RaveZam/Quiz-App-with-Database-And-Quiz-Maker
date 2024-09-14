@@ -59,7 +59,7 @@ export default function Astronomy() {
   return (
     <>
       <audio ref={hoverSound} src={answerclick} preload="auto" />
-      {/* <audio src={bgmmusic} autoPlay loop /> */}
+      <audio src={bgmmusic} autoPlay loop />
 
       <Ingameheader />
       {/* conditionally irrender yung components if done naba yung quiz or hindi */}
