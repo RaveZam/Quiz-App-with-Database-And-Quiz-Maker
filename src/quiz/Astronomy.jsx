@@ -1,4 +1,4 @@
-import { useReducer, useRef, useState } from "react";
+import { useReducer, useRef, useState, useEffect } from "react";
 import styles from "./astronomy.module.css";
 import Ingameheader from "../header/Ingameheader";
 import answerclick from "/sounds/answerclick.wav";
@@ -6,7 +6,7 @@ import bgmmusic from "/sounds/astronomybgm.mp3";
 import success from "/sounds/success.mp3";
 import fail from "/sounds/fail.mp3";
 
-export default function Astronomy() {
+export default function Astronomy({ fastmode, setfastmode }) {
   const clicksound = useRef(null);
   const successsound = useRef(null);
   const failsound = useRef(null);
@@ -33,6 +33,7 @@ export default function Astronomy() {
       correctanswer: "Jupiter",
     },
   ];
+
   const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
   const currentquestion = astronomyquestions[currentQuestionIndex];
   const [score, setScore] = useState(0);
@@ -40,10 +41,27 @@ export default function Astronomy() {
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
   const [isDisabled, setDisabled] = useState(false);
   const [optionClicked, setOptionClicked] = useState("");
+  const [timerstart, settimerstart] = useState(false);
+  const timerRef = useRef(null);
+
+  timerstart == true
+    ? fastmode
+      ? (timerRef.current = setTimeout(() => {
+          setcurrentQuestionIndex(currentQuestionIndex + 1);
+          currentQuestionIndex == astronomyquestions.length - 1
+            ? setFinished(true)
+            : "";
+        }, 2000)) & console.log("Fastmode Selected")
+      : setTimeout(() => {
+          setcurrentQuestionIndex(currentQuestionIndex + 1);
+          currentQuestionIndex == astronomyquestions.length - 1
+            ? setFinished(true)
+            : "";
+        }, 6000) & console.log("Normal Mode Selected")
+    : clearTimeout(timerRef.current);
 
   function checkcorrectanswer(option) {
     //checks if finished na yung quiz
-
     setDisabled(true);
 
     if (currentQuestionIndex == astronomyquestions.length - 1) {
@@ -68,6 +86,7 @@ export default function Astronomy() {
 
       setTimeout(() => {
         setcurrentQuestionIndex(currentQuestionIndex + 1);
+        settimerstart(true);
         setshowCorrectAnswer(false);
         setDisabled(false);
         setOptionClicked(null);
@@ -77,12 +96,14 @@ export default function Astronomy() {
 
   const [timerpopup, settimerpopup] = useState(true);
   const [timer, setTimer] = useState(3);
-  if (timer > 0) {
+  if (timer >= 0) {
     setTimeout(() => {
       setTimer(timer - 1);
     }, 1000);
-  } else if (timer == 0 && timerpopup) {
+  } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
+    settimerstart(true);
+    console.log(timerstart);
   }
   return (
     <>
@@ -141,6 +162,8 @@ export default function Astronomy() {
                   onClick={() => {
                     checkcorrectanswer(option, index);
                     clicksound.current.play();
+                    clearTimeout(timerRef.current);
+                    settimerstart(false);
                   }}
                   key={index}
                 >

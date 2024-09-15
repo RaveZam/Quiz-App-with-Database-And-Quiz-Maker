@@ -2,7 +2,11 @@ import { useActionData } from "react-router-dom";
 import styles from "./quizhub.module.css";
 import { useState } from "react";
 
-export default function AstronomyComponent({ navigate }) {
+export default function AstronomyComponent({
+  navigate,
+  fastmode,
+  setfastmode,
+}) {
   const [popup, showpopup] = useState(false);
 
   function showprestart() {
@@ -59,6 +63,20 @@ export default function AstronomyComponent({ navigate }) {
               <span>Made By: Runielle Raven </span>
               <span className={styles.difficulty}>Difficulty Level: </span>
               <span>10 Questions </span>
+
+              <div className={styles.switchcontainer}>
+                <span className={styles.seconds}> 15second Mode</span>
+                <label className={styles.switch}>
+                  <input
+                    onClick={() =>
+                      setfastmode(!fastmode) & console.log(fastmode)
+                    }
+                    className={styles.checkbox}
+                    type="checkbox"
+                  />
+                  <span className={styles.slider} />
+                </label>
+              </div>
               <button
                 onClick={() => navigate("/Astronomy")}
                 className={styles.startbtn}
