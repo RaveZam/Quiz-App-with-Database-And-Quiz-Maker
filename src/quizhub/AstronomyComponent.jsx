@@ -62,10 +62,24 @@ export default function AstronomyComponent({
               <h1>{quizname}</h1>
               <span>Made By: Runielle Raven </span>
               <span className={styles.difficulty}>Difficulty Level: </span>
-              <span>10 Questions </span>
+              <span>Questions: 10 </span>
+              <span
+                style={{
+                  whiteSpace: "nowrap",
+                  fontSize: "0.7vw",
+                  color: "red",
+                  marginTop: "4px",
+                  marginBottom: "4px",
+                }}
+              >
+                10 Seconds to answer Each Questions!{" "}
+              </span>
 
-              <div className={styles.switchcontainer}>
-                <span className={styles.seconds}> 15second Mode</span>
+              <div
+                style={{ marginBottom: "4px" }}
+                className={styles.switchcontainer}
+              >
+                <span className={styles.seconds}> 5 Second Mode:</span>
                 <label className={styles.switch}>
                   <input
                     onClick={() =>

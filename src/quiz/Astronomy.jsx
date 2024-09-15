@@ -42,28 +42,19 @@ export default function Astronomy({ fastmode, setfastmode }) {
   const [isDisabled, setDisabled] = useState(false);
   const [optionClicked, setOptionClicked] = useState("");
   const [timerstart, settimerstart] = useState(false);
+  const [slidetimer, setslidetimer] = useState(5);
   const timerRef = useRef(null);
+
   // *************************************************** TIMER FUNCTION***************************************************
-  timerstart == true
-    ? fastmode
-      ? (timerRef.current = setTimeout(() => {
-          setcurrentQuestionIndex(currentQuestionIndex + 1);
-          currentQuestionIndex == astronomyquestions.length - 1
-            ? setFinished(true)
-            : "";
-        }, 2000)) & console.log("Fastmode Selected")
-      : setTimeout(() => {
-          setcurrentQuestionIndex(currentQuestionIndex + 1);
-          currentQuestionIndex == astronomyquestions.length - 1
-            ? setFinished(true)
-            : "";
-        }, 6000) & console.log("Normal Mode Selected")
-    : clearTimeout(timerRef.current) &
-      console.log("timer stopped from main function");
+
+  // ayoko na
+
   // *************************************************** TIMER FUNCTION***************************************************
 
   // *************************************************** BUTTON FUNCTION**************************************************
   function checkcorrectanswer(option) {
+    settimerstart(false);
+    clearTimeout(timerRef.current);
     //checks if finished na yung quiz
     setDisabled(true);
     if (currentQuestionIndex == astronomyquestions.length - 1) {
@@ -91,7 +82,6 @@ export default function Astronomy({ fastmode, setfastmode }) {
         setshowCorrectAnswer(false);
         setDisabled(false);
         setOptionClicked(null);
-        settimerpopup(true);
       }, 3000);
     }, 3000);
   }
@@ -103,12 +93,9 @@ export default function Astronomy({ fastmode, setfastmode }) {
   if (timer >= 0) {
     setTimeout(() => {
       setTimer(timer - 1);
-      console.log("timer ticked");
     }, 1000);
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
-    settimerstart(true);
-    console.log("timerstarted");
   }
   return (
     <>
@@ -119,11 +106,10 @@ export default function Astronomy({ fastmode, setfastmode }) {
       ) : (
         ""
       )}
-
       <audio ref={clicksound} src={answerclick} preload="auto" />
       <audio ref={successsound} src={success} preload="auto" />
       <audio ref={failsound} src={fail} preload="auto" />
-      <audio src={bgmmusic} autoPlay loop />
+      {/* <audio src={bgmmusic} autoPlay loop /> */}
 
       <Ingameheader />
       {/* conditionally irrender yung components if done naba yung quiz or hindi */}
@@ -137,6 +123,7 @@ export default function Astronomy({ fastmode, setfastmode }) {
         // quiz screen
         <div className={styles.AstronomyQuiz}>
           <div className={styles.questioncontainer}>
+            <h1 className={styles.slidetimer}>{slidetimer} Seconds Left!</h1>
             <h1 className={styles.question}>{currentquestion.questiontext}</h1>
             <img
               className={styles.gif}
@@ -167,7 +154,6 @@ export default function Astronomy({ fastmode, setfastmode }) {
                   onClick={() => {
                     checkcorrectanswer(option, index);
                     clicksound.current.play();
-                    settimerstart(false);
                   }}
                   key={index}
                 >
