@@ -43,7 +43,7 @@ export default function Astronomy({ fastmode, setfastmode }) {
   const [optionClicked, setOptionClicked] = useState("");
   const [timerstart, settimerstart] = useState(false);
   const timerRef = useRef(null);
-
+  // *************************************************** TIMER FUNCTION***************************************************
   timerstart == true
     ? fastmode
       ? (timerRef.current = setTimeout(() => {
@@ -58,12 +58,14 @@ export default function Astronomy({ fastmode, setfastmode }) {
             ? setFinished(true)
             : "";
         }, 6000) & console.log("Normal Mode Selected")
-    : clearTimeout(timerRef.current);
+    : clearTimeout(timerRef.current) &
+      console.log("timer stopped from main function");
+  // *************************************************** TIMER FUNCTION***************************************************
 
+  // *************************************************** BUTTON FUNCTION**************************************************
   function checkcorrectanswer(option) {
     //checks if finished na yung quiz
     setDisabled(true);
-
     if (currentQuestionIndex == astronomyquestions.length - 1) {
       setTimeout(() => {
         setFinished(true);
@@ -86,24 +88,27 @@ export default function Astronomy({ fastmode, setfastmode }) {
 
       setTimeout(() => {
         setcurrentQuestionIndex(currentQuestionIndex + 1);
-        settimerstart(true);
         setshowCorrectAnswer(false);
         setDisabled(false);
         setOptionClicked(null);
+        settimerpopup(true);
       }, 3000);
     }, 3000);
   }
+
+  // *************************************************** BUTTON FUNCTION***************************************************
 
   const [timerpopup, settimerpopup] = useState(true);
   const [timer, setTimer] = useState(3);
   if (timer >= 0) {
     setTimeout(() => {
       setTimer(timer - 1);
+      console.log("timer ticked");
     }, 1000);
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
     settimerstart(true);
-    console.log(timerstart);
+    console.log("timerstarted");
   }
   return (
     <>
@@ -162,7 +167,6 @@ export default function Astronomy({ fastmode, setfastmode }) {
                   onClick={() => {
                     checkcorrectanswer(option, index);
                     clicksound.current.play();
-                    clearTimeout(timerRef.current);
                     settimerstart(false);
                   }}
                   key={index}
