@@ -5,6 +5,7 @@ import answerclick from "/sounds/answerclick.wav";
 import bgmmusic from "/sounds/astronomybgm.mp3";
 import success from "/sounds/success.mp3";
 import fail from "/sounds/fail.mp3";
+import { useParams } from "react-router-dom";
 
 export default function Astronomy({ fastmode, setfastmode }) {
   const clicksound = useRef(null);
@@ -41,27 +42,54 @@ export default function Astronomy({ fastmode, setfastmode }) {
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
   const [isDisabled, setDisabled] = useState(false);
   const [optionClicked, setOptionClicked] = useState("");
-  const [timerstart, settimerstart] = useState(false);
-  const [slidetimer, setslidetimer] = useState(5);
-  const timerRef = useRef(null);
+  let newQuestionIndex = 0;
 
-  // *************************************************** TIMER FUNCTION***************************************************
+  // ******* ******************************************** TIMER FUNCTION***************************************************
+  const [slideTimer, setSlideTimer] = useState(2);
+  const timerRef = useRef();
 
-  // ayoko na
+  const startTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    timerRef.current = setInterval(() => {
+      setSlideTimer((slideTimer) => {
+        if (slideTimer > 0) {
+          return slideTimer - 1;
+        } else {
+          clearInterval(timerRef.current);
+          nextSlide();
+        }
+      });
+    }, 1000);
+  };
+
+  function nextSlide() {
+    setcurrentQuestionIndex((prevcurrentQuestionIndex) => {
+      newQuestionIndex = prevcurrentQuestionIndex + 1;
+      console.log(newQuestionIndex);
+      return newQuestionIndex;
+    });
+    console.log(currentQuestionIndex);
+    setSlideTimer(2);
+    startTimer();
+    console.log("next");
+  }
 
   // *************************************************** TIMER FUNCTION***************************************************
 
   // *************************************************** BUTTON FUNCTION**************************************************
   function checkcorrectanswer(option) {
-    settimerstart(false);
-    clearTimeout(timerRef.current);
+    // clearTimeout(timerRef.current);
+    console.log(newQuestionIndex);
     //checks if finished na yung quiz
     setDisabled(true);
-    if (currentQuestionIndex == astronomyquestions.length - 1) {
-      setTimeout(() => {
-        setFinished(true);
-      }, 6000);
-    }
+
+    // if (currentQuestionIndex == astronomyquestions.length - 1) {
+    //   setTimeout(() => {
+    //     setFinished(true);
+    //   }, 6000);
+    // }
     //checks if tama yung sagot ni user and sets the score
     if (option == currentquestion.correctanswer) {
       setScore(score + 1);
@@ -78,7 +106,15 @@ export default function Astronomy({ fastmode, setfastmode }) {
       setOptionClicked(option);
 
       setTimeout(() => {
-        setcurrentQuestionIndex(currentQuestionIndex + 1);
+        // setcurrentQuestionIndex(currentQuestionIndex + 1);
+        setcurrentQuestionIndex((prevcurrentQuestionIndex) => {
+          newQuestionIndex = prevcurrentQuestionIndex + 1;
+          console.log(newQuestionIndex);
+          if (newQuestionIndex == astronomyquestions.length) {
+            setFinished(true);
+          }
+          return newQuestionIndex;
+        });
         setshowCorrectAnswer(false);
         setDisabled(false);
         setOptionClicked(null);
@@ -96,6 +132,7 @@ export default function Astronomy({ fastmode, setfastmode }) {
     }, 1000);
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
+    // startTimer();
   }
   return (
     <>
@@ -123,7 +160,7 @@ export default function Astronomy({ fastmode, setfastmode }) {
         // quiz screen
         <div className={styles.AstronomyQuiz}>
           <div className={styles.questioncontainer}>
-            <h1 className={styles.slidetimer}>{slidetimer} Seconds Left!</h1>
+            <h1 className={styles.slidetimer}>{slideTimer} Seconds Left!</h1>
             <h1 className={styles.question}>{currentquestion.questiontext}</h1>
             <img
               className={styles.gif}
