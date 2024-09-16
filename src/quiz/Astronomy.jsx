@@ -42,7 +42,7 @@ export default function Astronomy({ fastmode, setfastmode }) {
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
   const [isDisabled, setDisabled] = useState(false);
   const [optionClicked, setOptionClicked] = useState("");
-  let newQuestionIndex = 0;
+  const [tracker, setTracker] = useState(0);
 
   // ******* ******************************************** TIMER FUNCTION***************************************************
   const [slideTimer, setSlideTimer] = useState(2);
@@ -65,31 +65,27 @@ export default function Astronomy({ fastmode, setfastmode }) {
   };
 
   function nextSlide() {
-    setcurrentQuestionIndex((prevcurrentQuestionIndex) => {
-      newQuestionIndex = prevcurrentQuestionIndex + 1;
-      console.log(newQuestionIndex);
-      return newQuestionIndex;
-    });
-    console.log(currentQuestionIndex);
+    setcurrentQuestionIndex(
+      (prevcurrentQuestionIndex) => prevcurrentQuestionIndex + 1
+    );
+
     setSlideTimer(2);
     startTimer();
-    console.log("next");
   }
 
   // *************************************************** TIMER FUNCTION***************************************************
 
   // *************************************************** BUTTON FUNCTION**************************************************
   function checkcorrectanswer(option) {
-    // clearTimeout(timerRef.current);
-    console.log(newQuestionIndex);
     //checks if finished na yung quiz
     setDisabled(true);
 
-    // if (currentQuestionIndex == astronomyquestions.length - 1) {
-    //   setTimeout(() => {
-    //     setFinished(true);
-    //   }, 6000);
-    // }
+    if (currentQuestionIndex == astronomyquestions.length - 1) {
+      setTimeout(() => {
+        setFinished(true);
+      }, 6000);
+    }
+
     //checks if tama yung sagot ni user and sets the score
     if (option == currentquestion.correctanswer) {
       setScore(score + 1);
@@ -106,15 +102,7 @@ export default function Astronomy({ fastmode, setfastmode }) {
       setOptionClicked(option);
 
       setTimeout(() => {
-        // setcurrentQuestionIndex(currentQuestionIndex + 1);
-        setcurrentQuestionIndex((prevcurrentQuestionIndex) => {
-          newQuestionIndex = prevcurrentQuestionIndex + 1;
-          console.log(newQuestionIndex);
-          if (newQuestionIndex == astronomyquestions.length) {
-            setFinished(true);
-          }
-          return newQuestionIndex;
-        });
+        setcurrentQuestionIndex(currentQuestionIndex + 1);
         setshowCorrectAnswer(false);
         setDisabled(false);
         setOptionClicked(null);
@@ -132,7 +120,7 @@ export default function Astronomy({ fastmode, setfastmode }) {
     }, 1000);
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
-    // startTimer();
+    startTimer();
   }
   return (
     <>
