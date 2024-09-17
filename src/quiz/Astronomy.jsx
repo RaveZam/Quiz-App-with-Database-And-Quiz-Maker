@@ -42,10 +42,11 @@ export default function Astronomy({ fastmode, setfastmode }) {
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
   const [isDisabled, setDisabled] = useState(false);
   const [optionClicked, setOptionClicked] = useState("");
-  const [tracker, setTracker] = useState(0);
+  const slidetimenumber = fastmode ? 5 : 10;
 
   // ******* ******************************************** TIMER FUNCTION***************************************************
-  const [slideTimer, setSlideTimer] = useState(2);
+
+  const [slideTimer, setSlideTimer] = useState(slidetimenumber);
   const timerRef = useRef();
 
   const startTimer = () => {
@@ -68,8 +69,7 @@ export default function Astronomy({ fastmode, setfastmode }) {
     setcurrentQuestionIndex(
       (prevcurrentQuestionIndex) => prevcurrentQuestionIndex + 1
     );
-
-    setSlideTimer(2);
+    setSlideTimer(slidetimenumber);
     startTimer();
   }
 
@@ -78,6 +78,8 @@ export default function Astronomy({ fastmode, setfastmode }) {
   // *************************************************** BUTTON FUNCTION**************************************************
   function checkcorrectanswer(option) {
     //checks if finished na yung quiz
+    clearInterval(timerRef.current);
+
     setDisabled(true);
 
     if (currentQuestionIndex == astronomyquestions.length - 1) {
@@ -106,6 +108,8 @@ export default function Astronomy({ fastmode, setfastmode }) {
         setshowCorrectAnswer(false);
         setDisabled(false);
         setOptionClicked(null);
+        setSlideTimer(slidetimenumber);
+        startTimer();
       }, 3000);
     }, 3000);
   }
@@ -139,9 +143,10 @@ export default function Astronomy({ fastmode, setfastmode }) {
       <Ingameheader />
       {/* conditionally irrender yung components if done naba yung quiz or hindi */}
 
-      {finish ? (
+      {finish || currentQuestionIndex == astronomyquestions.length ? (
         // result screen
         <div className={styles.resultscreen}>
+          {clearTimeout(timerRef.current)}
           <h1>{score}</h1>
         </div>
       ) : (
