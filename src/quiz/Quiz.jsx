@@ -5,36 +5,12 @@ import answerclick from "/sounds/answerclick.wav";
 import bgmmusic from "/sounds/astronomybgm.mp3";
 import success from "/sounds/success.mp3";
 import fail from "/sounds/fail.mp3";
-import { useParams } from "react-router-dom";
 
-export default function Astronomy({ fastmode, setfastmode }) {
+export default function Astronomy({ fastmode, astronomyquestions }) {
   const clicksound = useRef(null);
   const successsound = useRef(null);
   const failsound = useRef(null);
-
-  const astronomyquestions = [
-    {
-      id: 1,
-      questiontext: "What is the largest planet in the solar system?",
-      options: ["Mercury", "Mars", "Jupiter", "Pluto"],
-      correctanswer: "Jupiter",
-      gif: "./images/astronomygifs/question1gif.gif",
-    },
-    {
-      id: 2,
-      questiontext: "What is the closest planet to the Sun?",
-      options: ["Earth", "Mercury", "Venus", "Jupiter"],
-      correctanswer: "Mercury",
-      gif: "./images/astronomygifs/question2gif.gif",
-    },
-    {
-      id: 3,
-      questiontext: "What is the largest planet in the solar system",
-      options: ["Mercury", "Mars", "Jupiter", "Pluto"],
-      correctanswer: "Jupiter",
-    },
-  ];
-
+  console.log(astronomyquestions);
   const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
   const currentquestion = astronomyquestions[currentQuestionIndex];
   const [score, setScore] = useState(0);
@@ -138,7 +114,7 @@ export default function Astronomy({ fastmode, setfastmode }) {
       <audio ref={clicksound} src={answerclick} preload="auto" />
       <audio ref={successsound} src={success} preload="auto" />
       <audio ref={failsound} src={fail} preload="auto" />
-      {/* <audio src={bgmmusic} autoPlay loop /> */}
+      <audio src={bgmmusic} autoPlay loop />
 
       <Ingameheader />
       {/* conditionally irrender yung components if done naba yung quiz or hindi */}

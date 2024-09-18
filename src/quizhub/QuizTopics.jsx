@@ -6,14 +6,14 @@ export default function AstronomyComponent({
   navigate,
   fastmode,
   setfastmode,
+  quizname,
+  quizdesc,
 }) {
   const [popup, showpopup] = useState(false);
 
   function showprestart() {
     showpopup(true);
   }
-
-  let quizname = "Astronomy Quiz";
 
   return (
     <>
@@ -28,9 +28,7 @@ export default function AstronomyComponent({
 
         <div className={styles.quiztxtdescription}>
           <h1 className={styles.quiztitle}> {quizname}</h1>
-          <p className={styles.quizdesc}>
-            Anything about space and whats beyond the skies.
-          </p>
+          <p className={styles.quizdesc}>{quizdesc}</p>
 
           <button
             onClick={() => showprestart()}
