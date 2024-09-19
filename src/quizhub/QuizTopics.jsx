@@ -8,6 +8,7 @@ export default function AstronomyComponent({
   setfastmode,
   quizname,
   quizdesc,
+  quizlink,
 }) {
   const [popup, showpopup] = useState(false);
 
@@ -58,7 +59,7 @@ export default function AstronomyComponent({
             </div>
             <div className={styles.popupinfo}>
               <h1>{quizname}</h1>
-              <span>Made By: Runielle Raven </span>
+              <span>Made By: Jyana Jodea Bernardino </span>
               <span className={styles.difficulty}>Difficulty Level: </span>
               <span>Questions: 10 </span>
               <span
@@ -90,7 +91,7 @@ export default function AstronomyComponent({
                 </label>
               </div>
               <button
-                onClick={() => navigate("/Quiz")}
+                onClick={() => navigate(quizlink)}
                 className={styles.startbtn}
               >
                 Start Quiz

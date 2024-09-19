@@ -16,6 +16,7 @@ export default function Quizhub({ fastmode, setfastmode }) {
           navigate={navigate}
           quizname={"Astronomy"}
           quizdesc={" Anything about space and whats beyond the skies."}
+          quizlink={"/Quiz"}
         />
         <QuizTopics
           fastmode={fastmode}
@@ -23,20 +24,7 @@ export default function Quizhub({ fastmode, setfastmode }) {
           navigate={navigate}
           quizname={"Example"}
           quizdesc={"Lorem ipsum dolor sit amet consectetur adipisicing el"}
-        />
-        <QuizTopics
-          fastmode={fastmode}
-          setfastmode={setfastmode}
-          navigate={navigate}
-          quizname={"Example"}
-          quizdesc={"Lorem ipsum dolor sit amet consectetur adipisicing el"}
-        />
-        <QuizTopics
-          fastmode={fastmode}
-          setfastmode={setfastmode}
-          navigate={navigate}
-          quizname={"Example"}
-          quizdesc={"Lorem ipsum dolor sit amet consectetur adipisicing el"}
+          quizlink={"/Quiz2"}
         />
       </div>
     </div>
