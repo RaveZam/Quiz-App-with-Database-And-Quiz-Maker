@@ -90,7 +90,7 @@ export default function AstronomyComponent({
                 </label>
               </div>
               <button
-                onClick={() => navigate("/Astronomy")}
+                onClick={() => navigate("/Quiz")}
                 className={styles.startbtn}
               >
                 Start Quiz

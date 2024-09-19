@@ -5,12 +5,26 @@ import answerclick from "/sounds/answerclick.wav";
 import bgmmusic from "/sounds/astronomybgm.mp3";
 import success from "/sounds/success.mp3";
 import fail from "/sounds/fail.mp3";
+import axios from "axios";
 
-export default function Astronomy({ fastmode, astronomyquestions }) {
+export default function Quiz({ fastmode }) {
   const clicksound = useRef(null);
   const successsound = useRef(null);
   const failsound = useRef(null);
-  console.log(astronomyquestions);
+  const url = "http://localhost/Quizappdatabase/fetch.php";
+  const [astronomyquestions, setastronomyquestions] = useState([]);
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((responce) => {
+        setastronomyquestions(responce.data);
+      })
+      .catch((error) => {
+        console.log("error fetching data", error);
+      });
+  }, []);
+
+  // console.log(astronomyquestions);
   const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
   const currentquestion = astronomyquestions[currentQuestionIndex];
   const [score, setScore] = useState(0);
@@ -100,8 +114,13 @@ export default function Astronomy({ fastmode, astronomyquestions }) {
     }, 1000);
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
-    startTimer();
+    // startTimer();
   }
+
+  // if (isLoading) {
+  //   return <div>Loading data, please wait...</div>;
+  // }
+
   return (
     <>
       {timerpopup ? (
@@ -130,14 +149,14 @@ export default function Astronomy({ fastmode, astronomyquestions }) {
         <div className={styles.AstronomyQuiz}>
           <div className={styles.questioncontainer}>
             <h1 className={styles.slidetimer}>{slideTimer} Seconds Left!</h1>
-            <h1 className={styles.question}>{currentquestion.questiontext}</h1>
+            <h1 className={styles.question}>{currentquestion.questions}</h1>
             <img
               className={styles.gif}
               src={currentquestion.gif}
               alt="questiongif"
             />
           </div>
-          <div className={styles.optionscontainer}>
+          {/* <div className={styles.optionscontainer}>
             <ul className={styles.uloptions}>
               {currentquestion.options.map((option, index) => (
                 <button
@@ -167,7 +186,7 @@ export default function Astronomy({ fastmode, astronomyquestions }) {
                 </button>
               ))}
             </ul>
-          </div>
+          </div> */}
         </div>
       )}
     </>
