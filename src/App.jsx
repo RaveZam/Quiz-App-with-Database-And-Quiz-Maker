@@ -7,6 +7,7 @@ import axios from "axios";
 import Mainpage from "./Mainpage";
 import Quiz from "./quiz/Quiz";
 import Quiz2 from "./quiz/Quiz2";
+import Finishscreen from "./FnishScreen/Finishscreen";
 
 import "./App.css";
 
@@ -29,6 +30,7 @@ function App() {
             element={<Quiz2 setfastmode={setfastmode} fastmode={fastmode} />}
           />
         </Routes>
+        <Routes path="/Finishscreen" element={<Finishscreen />} />
       </BrowserRouter>
     </div>
   );

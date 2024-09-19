@@ -40,6 +40,7 @@ h2 {
   backdrop-filter: blur(8.8px);
   -webkit-backdrop-filter: blur(8.8px);
   transition: all 0.5s ease-in-out;
+  justify-content: space-between !important ;
 }
 
 .quizcontainer:hover {
@@ -184,6 +185,7 @@ h2 {
 .seconds {
   margin-right: 4px;
 }
+
 .switch {
   position: relative;
   display: inline-block;

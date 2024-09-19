@@ -22,8 +22,8 @@ export default function Quizhub({ fastmode, setfastmode }) {
           fastmode={fastmode}
           setfastmode={setfastmode}
           navigate={navigate}
-          quizname={"Example"}
-          quizdesc={"Lorem ipsum dolor sit amet consectetur adipisicing el"}
+          quizname={"Biology"}
+          quizdesc={"The study of living organisms and their interactions."}
           quizlink={"/Quiz2"}
         />
       </div>

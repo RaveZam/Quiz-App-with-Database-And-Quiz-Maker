@@ -27,6 +27,7 @@ export default function Quiz({ fastmode }) {
         console.log("error fetching data", error);
       });
   }, []);
+
   const [score, setScore] = useState(0);
   const [finish, setFinished] = useState(false);
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
@@ -141,7 +142,11 @@ export default function Quiz({ fastmode }) {
         </div>
       ) : (
         // quiz screen
+
         <div className={styles.AstronomyQuiz}>
+          <div className={styles.hidden}>
+            {(array = JSON.parse(currentquestion.options))}
+          </div>
           <div className={styles.questioncontainer}>
             <h1 className={styles.slidetimer}>{slideTimer} Seconds Left!</h1>
             <h1 className={styles.question}>{currentquestion.questions}</h1>
@@ -151,7 +156,7 @@ export default function Quiz({ fastmode }) {
               alt="questiongif"
             />
           </div>
-          {(array = JSON.parse(currentquestion.options))}
+
           <div className={styles.optionscontainer}>
             <ul className={styles.uloptions}>
               {array.map((option, index) => (
