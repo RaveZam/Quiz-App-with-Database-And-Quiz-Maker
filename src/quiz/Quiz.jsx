@@ -13,6 +13,10 @@ export default function Quiz({ fastmode }) {
   const failsound = useRef(null);
   const url = "http://localhost/Quizappdatabase/fetch.php";
   const [astronomyquestions, setastronomyquestions] = useState([]);
+  const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
+  const currentquestion = astronomyquestions[currentQuestionIndex];
+  let array = null;
+
   useEffect(() => {
     axios
       .get(url)
@@ -23,10 +27,6 @@ export default function Quiz({ fastmode }) {
         console.log("error fetching data", error);
       });
   }, []);
-
-  // console.log(astronomyquestions);
-  const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
-  const currentquestion = astronomyquestions[currentQuestionIndex];
   const [score, setScore] = useState(0);
   const [finish, setFinished] = useState(false);
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
@@ -114,13 +114,8 @@ export default function Quiz({ fastmode }) {
     }, 1000);
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
-    // startTimer();
+    startTimer();
   }
-
-  // if (isLoading) {
-  //   return <div>Loading data, please wait...</div>;
-  // }
-
   return (
     <>
       {timerpopup ? (
@@ -156,9 +151,10 @@ export default function Quiz({ fastmode }) {
               alt="questiongif"
             />
           </div>
-          {/* <div className={styles.optionscontainer}>
+          {(array = JSON.parse(currentquestion.options))}
+          <div className={styles.optionscontainer}>
             <ul className={styles.uloptions}>
-              {currentquestion.options.map((option, index) => (
+              {array.map((option, index) => (
                 <button
                   disabled={isDisabled}
                   className={`${styles.optionbuttons} ${
@@ -186,7 +182,7 @@ export default function Quiz({ fastmode }) {
                 </button>
               ))}
             </ul>
-          </div> */}
+          </div>
         </div>
       )}
     </>

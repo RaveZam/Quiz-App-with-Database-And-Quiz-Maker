@@ -146,7 +146,6 @@ h2 {
   /* margin-top: 1000px; */
   background-color: white;
   flex-direction: column;
-  animation: slideDown 0.7s ease-in-out;
 }
 
 @keyframes slideDown {
