@@ -27,6 +27,7 @@ export default function Quiz2({ fastmode }) {
         console.log("error fetching data", error);
       });
   }, []);
+
   const [score, setScore] = useState(0);
   const [finish, setFinished] = useState(false);
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);

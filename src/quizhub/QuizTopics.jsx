@@ -9,6 +9,7 @@ export default function AstronomyComponent({
   quizname,
   quizdesc,
   quizlink,
+  quizbg,
 }) {
   const [popup, showpopup] = useState(false);
 
@@ -20,11 +21,7 @@ export default function AstronomyComponent({
     <>
       <div className={styles.quizcontainer}>
         <div className={styles.quizbg}>
-          <img
-            className={styles.quizbgimg}
-            src="./images/astronomy.webp"
-            alt=""
-          />
+          <img className={styles.quizbgimg} src={quizbg} alt="" />
         </div>
 
         <div className={styles.quiztxtdescription}>
@@ -51,11 +48,7 @@ export default function AstronomyComponent({
                 src="./images/cancel.png"
                 alt="cancel"
               />
-              <img
-                className={styles.popupbg}
-                src="./images/astronomy.webp"
-                alt=""
-              />
+              <img className={styles.popupbg} src={quizbg} alt="" />
             </div>
             <div className={styles.popupinfo}>
               <h1>{quizname}</h1>
@@ -81,9 +74,7 @@ export default function AstronomyComponent({
                 <span className={styles.seconds}> 5 Second Mode:</span>
                 <label className={styles.switch}>
                   <input
-                    onClick={() =>
-                      setfastmode(!fastmode) & console.log(fastmode)
-                    }
+                    onClick={() => setfastmode(!fastmode)}
                     className={styles.checkbox}
                     type="checkbox"
                   />

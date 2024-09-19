@@ -15,8 +15,11 @@ export default function Quizhub({ fastmode, setfastmode }) {
           setfastmode={setfastmode}
           navigate={navigate}
           quizname={"Astronomy"}
-          quizdesc={" Anything about space and whats beyond the skies."}
+          quizdesc={
+            "Anything about Planets, Galaxies and preety stars above us"
+          }
           quizlink={"/Quiz"}
+          quizbg={"./images/astronomy.avif"}
         />
         <QuizTopics
           fastmode={fastmode}
@@ -25,6 +28,7 @@ export default function Quizhub({ fastmode, setfastmode }) {
           quizname={"Biology"}
           quizdesc={"The study of living organisms and their interactions."}
           quizlink={"/Quiz2"}
+          quizbg={"./images/biologybg.jfif"}
         />
       </div>
     </div>
