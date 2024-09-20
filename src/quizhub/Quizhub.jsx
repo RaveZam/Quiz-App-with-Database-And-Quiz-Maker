@@ -1,35 +1,36 @@
+import axios from "axios";
 import QuizTopics from "./QuizTopics";
 import styles from "./quizhub.module.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Quizhub({ fastmode, setfastmode }) {
   const navigate = useNavigate();
+  const [quizzes, setquizzes] = useState([]);
+  const url = "http://localhost/Quizappdatabase/fetchquiz.php";
+
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((responce) => {
+        setquizzes(responce.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching data", error);
+      });
+  }, []);
 
   return (
     <div className={styles.page}>
       <h2 style={{ color: "white" }}>Recently Published</h2>
-
       <div className={styles.quizhub}>
-        <QuizTopics
-          fastmode={fastmode}
-          setfastmode={setfastmode}
-          navigate={navigate}
-          quizname={"Astronomy"}
-          quizdesc={
-            "Anything about Planets, Galaxies and preety stars above us"
-          }
-          quizlink={"/Quiz"}
-          quizbg={"./images/astronomy.avif"}
-        />
-        {/* <QuizTopics
-          fastmode={fastmode}
-          setfastmode={setfastmode}
-          navigate={navigate}
-          quizname={"Biology"}
-          quizdesc={"The study of living organisms and their interactions."}
-          quizlink={"/Quiz2"}
-          quizbg={"./images/biologybg.jfif"}
-        /> */}
+        {quizzes.map((quiz) => (
+          <QuizTopics
+            key={quiz.id_quiznames}
+            quizname={quiz.quizname}
+            quizdesc={quiz.quizdescription}
+          />
+        ))}
       </div>
     </div>
   );

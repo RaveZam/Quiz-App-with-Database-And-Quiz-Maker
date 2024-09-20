@@ -17,7 +17,7 @@ export default function Mainpage({ fastmode, setfastmode }) {
   }, []);
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Quizhub fastmode={fastmode} setfastmode={setfastmode} />
     </>
   );
