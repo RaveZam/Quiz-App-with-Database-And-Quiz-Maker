@@ -21,7 +21,7 @@ export default function Quizhub({ fastmode, setfastmode }) {
           quizlink={"/Quiz"}
           quizbg={"./images/astronomy.avif"}
         />
-        <QuizTopics
+        {/* <QuizTopics
           fastmode={fastmode}
           setfastmode={setfastmode}
           navigate={navigate}
@@ -29,7 +29,7 @@ export default function Quizhub({ fastmode, setfastmode }) {
           quizdesc={"The study of living organisms and their interactions."}
           quizlink={"/Quiz2"}
           quizbg={"./images/biologybg.jfif"}
-        />
+        /> */}
       </div>
     </div>
   );
