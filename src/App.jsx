@@ -49,6 +49,7 @@ function App() {
                 quizzes={quizzes}
                 setfastmode={setfastmode}
                 fastmode={fastmode}
+                database={database}
               />
             }
           />

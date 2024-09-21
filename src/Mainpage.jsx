@@ -22,7 +22,7 @@ export default function Mainpage({
   }, []);
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <Quizhub
         quizzes={quizzes}
         fastmode={fastmode}

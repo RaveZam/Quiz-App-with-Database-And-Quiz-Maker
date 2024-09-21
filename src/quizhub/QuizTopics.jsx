@@ -1,24 +1,28 @@
-import { useActionData } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import styles from "./quizhub.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Quiz from "../quiz/Quiz";
+import axios from "axios";
 
-export default function AstronomyComponent({
+export default function QuizTopics({
   fastmode,
   setfastmode,
   quizname,
   quizdesc,
-  quizlink,
   quizbg,
   madeby,
   quizdatabase,
 }) {
   const [popup, showpopup] = useState(false);
+  const [gamestart, setgamestart] = useState(false);
   const navigate = useNavigate();
 
   function showprestart() {
     showpopup(true);
+    // console.log(quizdatabase);
   }
+  function setphpdatabase() {}
 
   return (
     <>
@@ -29,7 +33,6 @@ export default function AstronomyComponent({
 
         <div className={styles.quiztxtdescription}>
           <h1 className={styles.quiztitle}> {quizname}</h1>
-          <h1 className={styles.quiztitle}> {quizdatabase}</h1>
 
           <p className={styles.quizdesc}>{quizdesc}</p>
 
@@ -41,8 +44,6 @@ export default function AstronomyComponent({
           </button>
         </div>
       </div>
-      {/* ////////// */}
-      {/* //popup */}
       {popup ? (
         <div className={styles.overlay}>
           <div className={`${styles.popup} ${popup ? styles.slide : ""}`}>
@@ -87,7 +88,7 @@ export default function AstronomyComponent({
                 </label>
               </div>
               <button
-                onClick={() => navigate("/Quiz")}
+                onClick={() => setphpdatabase() & navigate("/Quiz")}
                 className={styles.startbtn}
               >
                 Start Quiz

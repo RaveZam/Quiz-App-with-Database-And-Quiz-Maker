@@ -115,7 +115,7 @@ export default function Quiz({ fastmode }) {
     }, 1000);
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
-    startTimer();
+    // startTimer();
   }
   return (
     <>
