@@ -2,7 +2,12 @@ import Quizhub from "./quizhub/Quizhub";
 import Header from "./header/Header";
 import { useEffect, useState } from "react";
 
-export default function Mainpage({ fastmode, setfastmode }) {
+export default function Mainpage({
+  setDatabase,
+  quizzes,
+  fastmode,
+  setfastmode,
+}) {
   useEffect(() => {
     const handlePopState = () => {
       setfastmode(false);
@@ -18,7 +23,12 @@ export default function Mainpage({ fastmode, setfastmode }) {
   return (
     <>
       {/* <Header /> */}
-      <Quizhub fastmode={fastmode} setfastmode={setfastmode} />
+      <Quizhub
+        quizzes={quizzes}
+        fastmode={fastmode}
+        setfastmode={setfastmode}
+        setDatabase={setDatabase}
+      />
     </>
   );
 }

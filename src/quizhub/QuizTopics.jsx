@@ -11,6 +11,7 @@ export default function AstronomyComponent({
   quizlink,
   quizbg,
   madeby,
+  quizdatabase,
 }) {
   const [popup, showpopup] = useState(false);
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ export default function AstronomyComponent({
 
         <div className={styles.quiztxtdescription}>
           <h1 className={styles.quiztitle}> {quizname}</h1>
+          <h1 className={styles.quiztitle}> {quizdatabase}</h1>
+
           <p className={styles.quizdesc}>{quizdesc}</p>
 
           <button
