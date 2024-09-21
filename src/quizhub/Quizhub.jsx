@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function Quizhub({ fastmode, setfastmode }) {
-  const navigate = useNavigate();
   const [quizzes, setquizzes] = useState([]);
   const url = "http://localhost/Quizappdatabase/fetchquiz.php";
 
@@ -29,6 +28,8 @@ export default function Quizhub({ fastmode, setfastmode }) {
             key={quiz.id_quiznames}
             quizname={quiz.quizname}
             quizdesc={quiz.quizdescription}
+            quizbg={quiz.bgimg}
+            madeby={quiz.madeby}
           />
         ))}
       </div>

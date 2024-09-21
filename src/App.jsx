@@ -25,10 +25,6 @@ function App() {
             path="/Quiz"
             element={<Quiz setfastmode={setfastmode} fastmode={fastmode} />}
           />
-          <Route
-            path="/Quiz2"
-            element={<Quiz2 setfastmode={setfastmode} fastmode={fastmode} />}
-          />
         </Routes>
         <Routes path="/Finishscreen" element={<Finishscreen />} />
       </BrowserRouter>

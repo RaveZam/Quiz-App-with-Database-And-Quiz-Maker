@@ -1,17 +1,19 @@
 import { useActionData } from "react-router-dom";
 import styles from "./quizhub.module.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AstronomyComponent({
-  navigate,
   fastmode,
   setfastmode,
   quizname,
   quizdesc,
   quizlink,
   quizbg,
+  madeby,
 }) {
   const [popup, showpopup] = useState(false);
+  const navigate = useNavigate();
 
   function showprestart() {
     showpopup(true);
@@ -52,7 +54,7 @@ export default function AstronomyComponent({
             </div>
             <div className={styles.popupinfo}>
               <h1>{quizname}</h1>
-              <span>Made By: Jyana Jodea Bernardino </span>
+              <span>Made By: {madeby} </span>
               <span className={styles.difficulty}>Difficulty Level: </span>
               <span>Questions: 10 </span>
               <span
@@ -82,7 +84,7 @@ export default function AstronomyComponent({
                 </label>
               </div>
               <button
-                onClick={() => navigate(quizlink)}
+                onClick={() => navigate("/Quiz")}
                 className={styles.startbtn}
               >
                 Start Quiz
