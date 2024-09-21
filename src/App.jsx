@@ -26,7 +26,19 @@ function App() {
         console.log("Error fetching data", error);
       });
   }, []);
+  const url2 = "http://localhost/Quizappdatabase/fetch.php";
+  const [astronomyquestions, setastronomyquestions] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get(url2)
+      .then((responce) => {
+        setastronomyquestions(responce.data);
+      })
+      .catch((error) => {
+        console.log("error fetching data", error);
+      });
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
@@ -50,6 +62,7 @@ function App() {
                 setfastmode={setfastmode}
                 fastmode={fastmode}
                 database={database}
+                astronomyquestions={astronomyquestions}
               />
             }
           />

@@ -7,26 +7,18 @@ import success from "/sounds/success.mp3";
 import fail from "/sounds/fail.mp3";
 import axios from "axios";
 
-export default function Quiz({ fastmode }) {
+export default function Quiz({
+  fastmode,
+
+  astronomyquestions,
+}) {
   const clicksound = useRef(null);
   const successsound = useRef(null);
   const failsound = useRef(null);
-  const url = "http://localhost/Quizappdatabase/fetch.php";
-  const [astronomyquestions, setastronomyquestions] = useState([]);
+
   const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
   const currentquestion = astronomyquestions[currentQuestionIndex];
   let array = null;
-
-  useEffect(() => {
-    axios
-      .get(url)
-      .then((responce) => {
-        setastronomyquestions(responce.data);
-      })
-      .catch((error) => {
-        console.log("error fetching data", error);
-      });
-  }, []);
 
   const [score, setScore] = useState(0);
   const [finish, setFinished] = useState(false);
