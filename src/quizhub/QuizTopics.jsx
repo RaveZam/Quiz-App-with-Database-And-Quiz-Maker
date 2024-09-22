@@ -8,11 +8,13 @@ import axios from "axios";
 export default function QuizTopics({
   fastmode,
   setfastmode,
+  setDatabase,
   quizname,
   quizdesc,
   quizbg,
   madeby,
   quizdatabase,
+  database,
 }) {
   const [popup, showpopup] = useState(false);
   const [gamestart, setgamestart] = useState(false);
@@ -20,9 +22,10 @@ export default function QuizTopics({
 
   function showprestart() {
     showpopup(true);
-    // console.log(quizdatabase);
   }
-  function setphpdatabase() {}
+  function setphpdatabase() {
+    setDatabase(quizdatabase);
+  }
 
   return (
     <>

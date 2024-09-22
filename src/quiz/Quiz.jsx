@@ -6,15 +6,27 @@ import bgmmusic from "/sounds/astronomybgm.mp3";
 import success from "/sounds/success.mp3";
 import fail from "/sounds/fail.mp3";
 import axios from "axios";
+import { useFetcher } from "react-router-dom";
 
-export default function Quiz({
-  fastmode,
-
-  astronomyquestions,
-}) {
+export default function Quiz({ fastmode, database }) {
   const clicksound = useRef(null);
   const successsound = useRef(null);
   const failsound = useRef(null);
+  const url = "http://localhost/Quizappdatabase/fetch.php";
+  const [astronomyquestions, setastronomyquestions] = useState([]);
+
+  useEffect(() => {
+    let fData = new FormData();
+    fData.append("database", database);
+    axios
+      .post(url, fData)
+      .then((response) => {
+        setastronomyquestions(response.data);
+      })
+      .catch((error) => {
+        console.log("Error posting data:", error);
+      });
+  }, [database]);
 
   const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
   const currentquestion = astronomyquestions[currentQuestionIndex];

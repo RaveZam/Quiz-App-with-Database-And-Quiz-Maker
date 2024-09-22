@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Mainpage({
   setDatabase,
+  database,
   quizzes,
   fastmode,
   setfastmode,
@@ -28,6 +29,7 @@ export default function Mainpage({
         fastmode={fastmode}
         setfastmode={setfastmode}
         setDatabase={setDatabase}
+        database={database}
       />
     </>
   );

@@ -9,6 +9,7 @@ export default function Quizhub({
   quizzes,
   fastmode,
   setfastmode,
+  database,
 }) {
   return (
     <div className={styles.page}>
@@ -25,6 +26,7 @@ export default function Quizhub({
             setfastmode={setfastmode}
             quizdatabase={quiz.database}
             setDatabase={setDatabase}
+            database={database}
           />
         ))}
       </div>

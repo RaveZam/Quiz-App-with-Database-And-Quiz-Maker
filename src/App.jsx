@@ -13,7 +13,8 @@ import "./App.css";
 function App() {
   const [fastmode, setfastmode] = useState(false);
   const [quizzes, setquizzes] = useState([]);
-  const [database, setDatabase] = useState();
+  const [database, setDatabase] = useState("");
+
   const url = "http://localhost/Quizappdatabase/fetchquiz.php";
 
   useEffect(() => {
@@ -26,19 +27,7 @@ function App() {
         console.log("Error fetching data", error);
       });
   }, []);
-  const url2 = "http://localhost/Quizappdatabase/fetch.php";
-  const [astronomyquestions, setastronomyquestions] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(url2)
-      .then((responce) => {
-        setastronomyquestions(responce.data);
-      })
-      .catch((error) => {
-        console.log("error fetching data", error);
-      });
-  }, []);
   return (
     <div className="App">
       <BrowserRouter>
@@ -51,6 +40,7 @@ function App() {
                 fastmode={fastmode}
                 setfastmode={setfastmode}
                 setDatabase={setDatabase}
+                database={database}
               />
             }
           />
@@ -62,7 +52,6 @@ function App() {
                 setfastmode={setfastmode}
                 fastmode={fastmode}
                 database={database}
-                astronomyquestions={astronomyquestions}
               />
             }
           />
