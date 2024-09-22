@@ -13,7 +13,9 @@ import "./App.css";
 function App() {
   const [fastmode, setfastmode] = useState(false);
   const [quizzes, setquizzes] = useState([]);
-  const [database, setDatabase] = useState("");
+  const [database, setDatabase] = useState(() => {
+    return localStorage.getItem("database") || "";
+  });
 
   const url = "http://localhost/Quizappdatabase/fetchquiz.php";
 
@@ -36,6 +38,7 @@ function App() {
             index
             element={
               <Mainpage
+                path="/"
                 quizzes={quizzes}
                 fastmode={fastmode}
                 setfastmode={setfastmode}

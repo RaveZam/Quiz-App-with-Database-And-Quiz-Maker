@@ -6,18 +6,26 @@ import bgmmusic from "/sounds/astronomybgm.mp3";
 import success from "/sounds/success.mp3";
 import fail from "/sounds/fail.mp3";
 import axios from "axios";
-import { useFetcher } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Quiz({ fastmode, database }) {
   const clicksound = useRef(null);
   const successsound = useRef(null);
   const failsound = useRef(null);
+  const bgref = useRef(null);
   const url = "http://localhost/Quizappdatabase/fetch.php";
   const [astronomyquestions, setastronomyquestions] = useState([]);
 
   useEffect(() => {
+    if (database) {
+      localStorage.setItem("database", database);
+    }
+  }, [database]);
+
+  useEffect(() => {
+    const storedDatabase = localStorage.getItem("database");
     let fData = new FormData();
-    fData.append("database", database);
+    fData.append("database", storedDatabase);
     axios
       .post(url, fData)
       .then((response) => {
@@ -119,8 +127,9 @@ export default function Quiz({ fastmode, database }) {
     }, 1000);
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
-    // startTimer();
+    startTimer();
   }
+
   return (
     <>
       {timerpopup ? (
@@ -133,16 +142,24 @@ export default function Quiz({ fastmode, database }) {
       <audio ref={clicksound} src={answerclick} preload="auto" />
       <audio ref={successsound} src={success} preload="auto" />
       <audio ref={failsound} src={fail} preload="auto" />
-      <audio src={bgmmusic} autoPlay loop />
+      <audio ref={bgref} src={bgmmusic} autoPlay loop />
 
       <Ingameheader />
       {/* conditionally irrender yung components if done naba yung quiz or hindi */}
 
       {finish || currentQuestionIndex == astronomyquestions.length ? (
         // result screen
-        <div className={styles.resultscreen}>
+        <div className={styles.resultscreencontainer}>
           {clearTimeout(timerRef.current)}
-          <h1>{score}</h1>
+          <div className={styles.resultscreen}>
+            <h1>Congratulations!</h1>
+            <h1>You Have Passed! Runielle Raven</h1>
+            <h3>Your Score is:</h3>
+            <h1>
+              {score} / {astronomyquestions.length}
+            </h1>
+            <button> Finsh </button>
+          </div>
         </div>
       ) : (
         // quiz screen

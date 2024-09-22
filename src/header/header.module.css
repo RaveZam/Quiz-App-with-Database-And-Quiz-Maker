@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: center;
   border: none;
+  z-index: 100;
 }
 
 .title {
@@ -51,6 +52,7 @@
   background-color: rgba(0, 0, 0, 0);
   backdrop-filter: blur(2px);
   position: absolute;
+  z-index: 100;
 }
 
 .ingameheadertitle {
