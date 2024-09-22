@@ -1,5 +1,5 @@
 import { useReducer, useRef, useState, useEffect } from "react";
-import styles from "./astronomy.module.css";
+import styles from "./quiz.module.css";
 import Ingameheader from "../header/Ingameheader";
 import answerclick from "/sounds/answerclick.wav";
 import bgmmusic from "/sounds/astronomybgm.mp3";
@@ -12,7 +12,8 @@ export default function Quiz({ fastmode, database }) {
   const clicksound = useRef(null);
   const successsound = useRef(null);
   const failsound = useRef(null);
-  const bgref = useRef(null);
+  const navigate = useNavigate();
+
   const url = "http://localhost/Quizappdatabase/fetch.php";
   const [astronomyquestions, setastronomyquestions] = useState([]);
 
@@ -142,7 +143,7 @@ export default function Quiz({ fastmode, database }) {
       <audio ref={clicksound} src={answerclick} preload="auto" />
       <audio ref={successsound} src={success} preload="auto" />
       <audio ref={failsound} src={fail} preload="auto" />
-      <audio ref={bgref} src={bgmmusic} autoPlay loop />
+      {/* <audio ref={bgref} src={bgmmusic} autoPlay loop /> */}
 
       <Ingameheader />
       {/* conditionally irrender yung components if done naba yung quiz or hindi */}
@@ -151,14 +152,54 @@ export default function Quiz({ fastmode, database }) {
         // result screen
         <div className={styles.resultscreencontainer}>
           {clearTimeout(timerRef.current)}
+          <img className={styles.confetti} src="./images/confetti.gif" />
+          <img className={styles.poof} src="./images/poof.gif" />
+          <img className={styles.poof2} src="./images/poof.gif" />
           <div className={styles.resultscreen}>
+            <h1>Results:</h1>
             <h1>Congratulations!</h1>
-            <h1>You Have Passed! Runielle Raven</h1>
-            <h3>Your Score is:</h3>
+            <h1>You Have Passed</h1>
+            <h3>Runielle Raven's Score is:</h3>
             <h1>
               {score} / {astronomyquestions.length}
             </h1>
-            <button> Finsh </button>
+            <div className={styles.scorescontainer}>
+              <div className={styles.correctanswers}>
+                <div className={styles.iconimgcontainer}>
+                  <img
+                    className={styles.icon}
+                    src="./images/check.png"
+                    alt="check"
+                  />
+                </div>
+                <div className={styles.txtcontainer}>
+                  <span> {score} Correct answers</span>
+                  <span> 20%</span>
+                </div>
+              </div>
+              <div className={styles.incorrectanswers}>
+                <div className={styles.iconimgcontainer}>
+                  <img
+                    className={styles.icon}
+                    src="./images/close.png"
+                    alt="close"
+                  />
+                </div>
+                <div className={styles.txtcontainer}>
+                  <span> {score} Incorrect answers</span>
+                  <span> 20%</span>
+                </div>
+              </div>
+            </div>
+            <button
+              className={`${styles.btn} ${styles.btn1}`}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              {" "}
+              Finsh{" "}
+            </button>
           </div>
         </div>
       ) : (

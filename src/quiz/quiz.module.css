@@ -117,15 +117,138 @@
   width: 100%;
   height: 100vh;
   align-content: center;
+
+  z-index: -1;
 }
 
 .resultscreen {
+  font-size: 1.2vw;
   width: 50%;
-  height: 80vh;
+  height: 50vh;
   margin: auto;
   margin-top: 50px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.971);
   border-radius: 12px;
   padding: 20px;
   text-align: center;
+  z-index: 3;
+  backdrop-filter: blur(5px);
+  overflow: hidden;
+}
+
+.resultscreen h1:first-child {
+  font-size: 2vw;
+}
+.resultscreen h1:nth-child(2) {
+  font-size: 3vw;
+  color: #d83f55;
+}
+.resultscreen h1:nth-child(3) {
+  font-size: 2vw;
+  color: rgba(0, 0, 0, 0.814);
+}
+
+.resultscreen h3 {
+  font-size: 1vw;
+  color: rgba(0, 0, 0, 0.818);
+}
+.btn {
+  position: relative;
+  margin-top: 2%;
+  padding: 8px 30px;
+  border-radius: 12px;
+
+  background-color: rgb(248, 248, 248);
+  overflow: hidden;
+  z-index: 10 !important;
+  cursor: pointer;
+  font-size: 1.5vw;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(199, 12, 232, 0.473);
+  transform-origin: 0 0;
+  z-index: 9 !important;
+  transition: transform 0.3s;
+}
+
+.btn1::before {
+  transform: scaleX(0);
+}
+
+.btn1:hover::before {
+  transform: scaleX(1.5);
+}
+
+.scorescontainer {
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  gap: 4%;
+  margin: 10px;
+}
+.iconimgcontainer {
+  flex-grow: 1;
+  border-right: 1px solid rgb(255, 255, 255);
+  align-content: center;
+  padding: 12% 8%;
+}
+.icon {
+  filter: invert(1);
+  height: 20px;
+  transform: translateY(-4px);
+}
+
+.txtcontainer {
+  flex-direction: column;
+  text-align: left;
+  padding: 4%;
+  font-size: 1.2vw;
+  align-self: center;
+}
+
+.txtcontainer span:first-child {
+  white-space: nowrap;
+  font-size: 1vw;
+}
+
+.correctanswers {
+  display: flex;
+  background-color: #25a782;
+  width: 30%;
+  height: 4rem;
+  border-radius: 20px;
+}
+.incorrectanswers {
+  display: flex;
+  background-color: #d83f55;
+  width: 30%;
+  height: 4rem;
+  border-radius: 20px;
+}
+
+.confetti {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-150px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.poof {
+  position: absolute;
+  transform: translateY(-30%) translateX(10%);
+  z-index: 2;
+}
+.poof2 {
+  position: absolute;
+  transform: translateY(-30%) translateX(200%);
+  z-index: 2;
 }
