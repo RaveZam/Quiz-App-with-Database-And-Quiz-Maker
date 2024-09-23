@@ -7,13 +7,14 @@ import success from "/sounds/success.mp3";
 import fail from "/sounds/fail.mp3";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Result from "./Result";
+import Quizquestions from "./Quizquestions";
 
 export default function Quiz({ fastmode, database }) {
   const clicksound = useRef(null);
   const successsound = useRef(null);
   const failsound = useRef(null);
   const navigate = useNavigate();
-
   const url = "http://localhost/Quizappdatabase/fetch.php";
   const [astronomyquestions, setastronomyquestions] = useState([]);
 
@@ -40,7 +41,6 @@ export default function Quiz({ fastmode, database }) {
   const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
   const currentquestion = astronomyquestions[currentQuestionIndex];
   let array = null;
-
   const [score, setScore] = useState(0);
   const [finish, setFinished] = useState(false);
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
@@ -140,117 +140,30 @@ export default function Quiz({ fastmode, database }) {
       ) : (
         ""
       )}
+
       <audio ref={clicksound} src={answerclick} preload="auto" />
       <audio ref={successsound} src={success} preload="auto" />
       <audio ref={failsound} src={fail} preload="auto" />
       {/* <audio ref={bgref} src={bgmmusic} autoPlay loop /> */}
-
       <Ingameheader />
-      {/* conditionally irrender yung components if done naba yung quiz or hindi */}
-
       {finish || currentQuestionIndex == astronomyquestions.length ? (
-        // result screen
-        <div className={styles.resultscreencontainer}>
-          {clearTimeout(timerRef.current)}
-          <img className={styles.confetti} src="./images/confetti.gif" />
-          <img className={styles.poof} src="./images/poof.gif" />
-          <img className={styles.poof2} src="./images/poof.gif" />
-          <div className={styles.resultscreen}>
-            <h1>Results:</h1>
-            <h1>Congratulations!</h1>
-            <h1>You Have Passed</h1>
-            <h3>Runielle Raven's Score is:</h3>
-            <h1>
-              {score} / {astronomyquestions.length}
-            </h1>
-            <div className={styles.scorescontainer}>
-              <div className={styles.correctanswers}>
-                <div className={styles.iconimgcontainer}>
-                  <img
-                    className={styles.icon}
-                    src="./images/check.png"
-                    alt="check"
-                  />
-                </div>
-                <div className={styles.txtcontainer}>
-                  <span> {score} Correct answers</span>
-                  <span> 20%</span>
-                </div>
-              </div>
-              <div className={styles.incorrectanswers}>
-                <div className={styles.iconimgcontainer}>
-                  <img
-                    className={styles.icon}
-                    src="./images/close.png"
-                    alt="close"
-                  />
-                </div>
-                <div className={styles.txtcontainer}>
-                  <span> {score} Incorrect answers</span>
-                  <span> 20%</span>
-                </div>
-              </div>
-            </div>
-            <button
-              className={`${styles.btn} ${styles.btn1}`}
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              {" "}
-              Finsh{" "}
-            </button>
-          </div>
-        </div>
+        <Result
+          astronomyquestions={astronomyquestions}
+          score={score}
+          timerRef={timerRef}
+          navigate={navigate}
+        />
       ) : (
-        // quiz screen
-
-        <div className={styles.AstronomyQuiz}>
-          <div className={styles.hidden}>
-            {(array = JSON.parse(currentquestion.options))}
-          </div>
-          <div className={styles.questioncontainer}>
-            <h1 className={styles.slidetimer}>{slideTimer} Seconds Left!</h1>
-            <h1 className={styles.question}>{currentquestion.questions}</h1>
-            <img
-              className={styles.gif}
-              src={currentquestion.gif}
-              alt="questiongif"
-            />
-          </div>
-
-          <div className={styles.optionscontainer}>
-            <ul className={styles.uloptions}>
-              {array.map((option, index) => (
-                <button
-                  disabled={isDisabled}
-                  className={`${styles.optionbuttons} ${
-                    styles.optionbuttons1
-                  } ${
-                    showCorrectAnswer
-                      ? currentquestion.correctanswer == option
-                        ? styles.green
-                        : styles.darken
-                      : ""
-                  } ${
-                    optionClicked == option &&
-                    optionClicked !== currentquestion.correctanswer
-                      ? styles.red
-                      : ""
-                  }
-                  `}
-                  onClick={() => {
-                    checkcorrectanswer(option, index);
-                    clicksound.current.play();
-                  }}
-                  key={index}
-                >
-                  {option}
-                </button>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <Quizquestions
+          slideTimer={slideTimer}
+          astronomyquestions={astronomyquestions}
+          currentQuestionIndex={currentQuestionIndex}
+          currentquestion={currentquestion}
+          array={array}
+          isDisabled={isDisabled}
+          showCorrectAnswer={showCorrectAnswer}
+          optionClicked={optionClicked}
+        />
       )}
     </>
   );
