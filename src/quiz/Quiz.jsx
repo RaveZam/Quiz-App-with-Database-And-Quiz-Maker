@@ -1,19 +1,15 @@
 import { useReducer, useRef, useState, useEffect } from "react";
 import styles from "./quiz.module.css";
 import Ingameheader from "../header/Ingameheader";
-import answerclick from "/sounds/answerclick.wav";
-import bgmmusic from "/sounds/astronomybgm.mp3";
-import success from "/sounds/success.mp3";
-import fail from "/sounds/fail.mp3";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Result from "./Result";
 import Quizquestions from "./Quizquestions";
+import Timerscreen from "./Timerscreen";
+import success from "/sounds/success.mp3";
+import fail from "/sounds/fail.mp3";
 
 export default function Quiz({ fastmode, database }) {
-  const clicksound = useRef(null);
-  const successsound = useRef(null);
-  const failsound = useRef(null);
   const navigate = useNavigate();
   const url = "http://localhost/Quizappdatabase/fetch.php";
   const [astronomyquestions, setastronomyquestions] = useState([]);
@@ -40,7 +36,6 @@ export default function Quiz({ fastmode, database }) {
 
   const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
   const currentquestion = astronomyquestions[currentQuestionIndex];
-  let array = null;
   const [score, setScore] = useState(0);
   const [finish, setFinished] = useState(false);
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
@@ -48,6 +43,8 @@ export default function Quiz({ fastmode, database }) {
   const [optionClicked, setOptionClicked] = useState("");
   const slidetimenumber = fastmode ? 5 : 10;
 
+  const successsound = useRef(null);
+  const failsound = useRef(null);
   // ******* ******************************************** TIMER FUNCTION***************************************************
 
   const [slideTimer, setSlideTimer] = useState(slidetimenumber);
@@ -133,18 +130,9 @@ export default function Quiz({ fastmode, database }) {
 
   return (
     <>
-      {timerpopup ? (
-        <div className={styles.timercontainer}>
-          <h1 className={styles.timer}>{timer == 0 ? "Go!" : timer}</h1>
-        </div>
-      ) : (
-        ""
-      )}
-
-      <audio ref={clicksound} src={answerclick} preload="auto" />
       <audio ref={successsound} src={success} preload="auto" />
       <audio ref={failsound} src={fail} preload="auto" />
-      {/* <audio ref={bgref} src={bgmmusic} autoPlay loop /> */}
+      <Timerscreen timerpopup={timerpopup} timer={timer} />
       <Ingameheader />
       {finish || currentQuestionIndex == astronomyquestions.length ? (
         <Result
@@ -159,10 +147,10 @@ export default function Quiz({ fastmode, database }) {
           astronomyquestions={astronomyquestions}
           currentQuestionIndex={currentQuestionIndex}
           currentquestion={currentquestion}
-          array={array}
           isDisabled={isDisabled}
           showCorrectAnswer={showCorrectAnswer}
           optionClicked={optionClicked}
+          checkcorrectanswer={checkcorrectanswer}
         />
       )}
     </>

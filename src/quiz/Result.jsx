@@ -1,5 +1,8 @@
 import styles from "./quiz.module.css";
-import Imagecomponents from "./Imagecomponents";
+import Imagecomponents from "./Passedimagecomponents";
+import { useEffect, useState } from "react";
+import Passedimagecomponents from "./Passedimagecomponents";
+import Failedimagecomponents from "./Failedimagecomponents";
 
 export default function Result({
   navigate,
@@ -7,14 +10,26 @@ export default function Result({
   score,
   timerRef,
 }) {
+  const incorrectanswers = astronomyquestions.length - score;
+  const incorrectanswerpercentage =
+    (incorrectanswers / astronomyquestions.length) * 100;
+  const correctpercentage = (score / astronomyquestions.length) * 100;
+  const [quizpassed, setquizpassed] = useState(false);
+
+  useEffect(() => {
+    score > astronomyquestions.length / 2 ? setquizpassed(true) : "";
+  }, []);
+
   return (
     <div className={styles.resultscreencontainer}>
       {clearTimeout(timerRef.current)}
-      <Imagecomponents />
+      {quizpassed ? <Passedimagecomponents /> : <Failedimagecomponents />}
       <div className={styles.resultscreen}>
         <h1>Results:</h1>
-        <h1>Congratulations!</h1>
-        <h1>You Have Passed</h1>
+        <h1>
+          {quizpassed ? "Congratulations!" : "Opps! Better Luck Next Time"}
+        </h1>
+        <h1>{quizpassed ? "You Have Passed" : "You have Failed"}</h1>
         <h3>Runielle Raven's Score is:</h3>
         <h1>
           {score} / {astronomyquestions.length}
@@ -30,7 +45,7 @@ export default function Result({
             </div>
             <div className={styles.txtcontainer}>
               <span> {score} Correct answers</span>
-              <span> 20%</span>
+              <span> {correctpercentage}%</span>
             </div>
           </div>
           <div className={styles.incorrectanswers}>
@@ -42,8 +57,8 @@ export default function Result({
               />
             </div>
             <div className={styles.txtcontainer}>
-              <span> {score} Incorrect answers</span>
-              <span> 20%</span>
+              <span>{incorrectanswers} Incorrect answers</span>
+              <span> {incorrectanswerpercentage}%</span>
             </div>
           </div>
         </div>
@@ -53,8 +68,7 @@ export default function Result({
             navigate("/");
           }}
         >
-          {" "}
-          Finsh{" "}
+          Finsh
         </button>
       </div>
     </div>

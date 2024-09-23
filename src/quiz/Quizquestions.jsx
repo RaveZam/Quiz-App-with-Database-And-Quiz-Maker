@@ -1,16 +1,23 @@
 import styles from "./quiz.module.css";
+import answerclick from "/sounds/answerclick.wav";
+import bgmmusic from "/sounds/astronomybgm.mp3";
+
+import { useRef } from "react";
+let array = null;
 
 export default function Quizquestions({
-  astronomyquestions,
-  array,
   slideTimer,
   currentquestion,
   isDisabled,
   showCorrectAnswer,
   optionClicked,
+  checkcorrectanswer,
 }) {
+  const clicksound = useRef(null);
   return (
     <div className={styles.AstronomyQuiz}>
+      <audio ref={clicksound} src={answerclick} preload="auto" />
+      <audio src={bgmmusic} autoPlay loop />
       <div className={styles.hidden}>
         {(array = JSON.parse(currentquestion.options))}
       </div>
@@ -23,7 +30,6 @@ export default function Quizquestions({
           alt="questiongif"
         />
       </div>
-
       <div className={styles.optionscontainer}>
         <ul className={styles.uloptions}>
           {array.map((option, index) => (

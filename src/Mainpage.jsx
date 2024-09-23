@@ -12,7 +12,6 @@ export default function Mainpage({
   useEffect(() => {
     const handlePopState = () => {
       setfastmode(false);
-      console.log("pop");
     };
 
     window.addEventListener("popstate", handlePopState());
