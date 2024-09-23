@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Mainpage from "./Mainpage";
 import Quiz from "./quiz/Quiz";
-import Finishscreen from "./FnishScreen/Finishscreen";
 
 import "./App.css";
 

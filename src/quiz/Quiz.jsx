@@ -42,7 +42,6 @@ export default function Quiz({ fastmode, database }) {
   const [isDisabled, setDisabled] = useState(false);
   const [optionClicked, setOptionClicked] = useState("");
   const slidetimenumber = fastmode ? 5 : 10;
-
   const successsound = useRef(null);
   const failsound = useRef(null);
   // ******* ******************************************** TIMER FUNCTION***************************************************
@@ -78,10 +77,8 @@ export default function Quiz({ fastmode, database }) {
 
   // *************************************************** BUTTON FUNCTION**************************************************
   function checkcorrectanswer(option) {
-    //checks if finished na yung quiz
-    clearInterval(timerRef.current);
-
-    setDisabled(true);
+    clearInterval(timerRef.current); //pauses the timer when user picks an option
+    setDisabled(true); //disable buttons while a question is picked
 
     if (currentQuestionIndex == astronomyquestions.length - 1) {
       setTimeout(() => {
@@ -101,6 +98,13 @@ export default function Quiz({ fastmode, database }) {
       }, 3000);
     }
     setTimeout(() => {
+      setTimeout(() => {
+        const speakcorrectanswer = new SpeechSynthesisUtterance(
+          currentquestion.correctanswer
+        );
+        window.speechSynthesis.speak(speakcorrectanswer);
+      }, 500);
+
       setshowCorrectAnswer(true);
       setOptionClicked(option);
 
@@ -119,19 +123,22 @@ export default function Quiz({ fastmode, database }) {
 
   const [timerpopup, settimerpopup] = useState(true);
   const [timer, setTimer] = useState(3);
+  const [canspeak, setcanspeak] = useState(false);
   if (timer >= 0) {
     setTimeout(() => {
       setTimer(timer - 1);
     }, 1000);
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
-    startTimer();
+    setcanspeak(true);
+    // startTimer();
   }
 
   return (
     <>
       <audio ref={successsound} src={success} preload="auto" />
       <audio ref={failsound} src={fail} preload="auto" />
+
       <Timerscreen timerpopup={timerpopup} timer={timer} />
       <Ingameheader />
       {finish || currentQuestionIndex == astronomyquestions.length ? (
@@ -151,6 +158,7 @@ export default function Quiz({ fastmode, database }) {
           showCorrectAnswer={showCorrectAnswer}
           optionClicked={optionClicked}
           checkcorrectanswer={checkcorrectanswer}
+          canspeak={canspeak}
         />
       )}
     </>

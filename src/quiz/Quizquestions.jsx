@@ -1,8 +1,10 @@
 import styles from "./quiz.module.css";
 import answerclick from "/sounds/answerclick.wav";
 import bgmmusic from "/sounds/astronomybgm.mp3";
+import { useEffect } from "react";
 
 import { useRef } from "react";
+
 let array = null;
 
 export default function Quizquestions({
@@ -12,12 +14,25 @@ export default function Quizquestions({
   showCorrectAnswer,
   optionClicked,
   checkcorrectanswer,
+  canspeak,
 }) {
+  const bgref = useRef(null);
+
   const clicksound = useRef(null);
+  useEffect(() => {
+    if (canspeak == true) {
+      const speakquestion = new SpeechSynthesisUtterance(
+        currentquestion.questions
+      );
+      window.speechSynthesis.speak(speakquestion);
+    }
+    bgref.current.volume = 0.75;
+  }, [currentquestion.questions, canspeak]);
+
   return (
     <div className={styles.AstronomyQuiz}>
       <audio ref={clicksound} src={answerclick} preload="auto" />
-      <audio src={bgmmusic} autoPlay loop />
+      <audio ref={bgref} src={bgmmusic} autoPlay loop />
       <div className={styles.hidden}>
         {(array = JSON.parse(currentquestion.options))}
       </div>
