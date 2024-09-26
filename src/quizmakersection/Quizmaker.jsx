@@ -13,6 +13,21 @@ export default function Quizmaker() {
       gif: null,
     },
   ]);
+
+  const [quizDescriptions, setQuizdescription] = useState([
+    [
+      {
+        quizname: "",
+        quizdescription: "",
+        madeby: "",
+        difficultylevel: "",
+        slides: "",
+        database: "",
+        bgimg: "",
+      },
+    ],
+  ]);
+
   const [quizname, setQuizName] = useState("");
 
   function handleQuestionChange(index, value) {
@@ -55,37 +70,40 @@ export default function Quizmaker() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const url = "http://localhost/Quizappdatabase/uploaddb.php";
-    const formData = new FormData();
+    setQuizdescription([{ ...quizDescriptions[0], quizname: quizname }]);
+    setQuizdescription([{ ...quizDescriptions[0], database: quizname }]);
 
-    formData.append("quizname", quizname);
-    formData.append(
-      "questions",
-      JSON.stringify(
-        questions.map((q) => ({
-          question: q.question,
-          options: q.options,
-          correctAnswer: q.correctAnswer,
-        }))
-      )
-    );
+    // const url = "http://localhost/Quizappdatabase/uploaddb.php";
+    // const formData = new FormData();
 
-    questions.forEach((question) => {
-      if (question.gif) {
-        formData.append(`gifs[]`, question.gif);
-      }
-    });
+    // formData.append("quizname", quizname);
+    // formData.append(
+    //   "questions",
+    //   JSON.stringify(
+    //     questions.map((q) => ({
+    //       question: q.question,
+    //       options: q.options,
+    //       correctAnswer: q.correctAnswer,
+    //     }))
+    //   )
+    // );
 
-    axios
-      .post(url, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((response) => {
-        console.log("Quiz saved successfully", response);
-      })
-      .catch((error) => {
-        console.log("Oops Error!", error);
-      });
+    // questions.forEach((question) => {
+    //   if (question.gif) {
+    //     formData.append(`gifs[]`, question.gif);
+    //   }
+    // });
+
+    // axios
+    //   .post(url, formData, {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   })
+    //   .then((response) => {
+    //     console.log("Quiz saved successfully", response);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Oops Error!", error);
+    //   });
   }
   return (
     <>
@@ -104,13 +122,35 @@ export default function Quizmaker() {
               type="text"
               name="quizdesc"
               placeholder="Give a brief Description"
+              onChange={(e) =>
+                setQuizdescription([
+                  { ...quizDescriptions[0], quizdesc: e.target.value },
+                ])
+              }
             />
             <br />
             <label htmlFor="quizcreator">Name Of Creator</label>
-            <input placeholder="Name" type="text" name="quizcreator" />
+            <input
+              onChange={(e) =>
+                setQuizdescription([
+                  { ...quizDescriptions[0], madeby: e.target.value },
+                ])
+              }
+              placeholder="Name"
+              type="text"
+              name="quizcreator"
+            />
 
             <label htmlFor="difficulty">Difficulty Level</label>
-            <input type="text" placeholder="Easy/Medium/Hard" />
+            <input
+              onChange={(e) =>
+                setQuizdescription([
+                  { ...quizDescriptions[0], difficultylevel: e.target.value },
+                ])
+              }
+              type="text"
+              placeholder="Easy/Medium/Hard"
+            />
           </div>
           {questions.map((question, qIndex) => (
             <div key={qIndex}>
@@ -152,6 +192,12 @@ export default function Quizmaker() {
             Add Another Question
           </button>
           <button type="submit">Save Quiz</button>
+          <button
+            onClick={() => console.log(quizDescriptions[0])}
+            type="button"
+          >
+            Log Array
+          </button>
         </form>
       </div>
     </>
