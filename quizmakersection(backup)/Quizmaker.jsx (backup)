@@ -1,0 +1,110 @@
+import styles from "./quizmaker.module.css";
+import axios from "axios";
+import { useState } from "react";
+
+export default function Quizmaker() {
+  const [questions, setQuestions] = useState([
+    { id: 0, question: "", options: ["", "", "", ""], correctAnswer: "" },
+  ]);
+
+  const [quizname, setQuizName] = useState("");
+
+  function handleQuestionChange(index, value) {
+    const newQuestion = [...questions];
+    newQuestion[index].id = index + 1;
+    newQuestion[index].question = value;
+    setQuestions(newQuestion);
+  }
+  function handleOptionChange(qIndex, oIndex, value) {
+    const newQuestion = [...questions];
+    newQuestion[qIndex].options[oIndex] = value;
+    setQuestions(newQuestion);
+  }
+  function handleCorrectAnswerChange(qIndex, value) {
+    const newQuestion = [...questions];
+    newQuestion[qIndex].correctAnswer = value;
+    setQuestions(newQuestion);
+  }
+
+  function addQuestion() {
+    setQuestions([
+      ...questions,
+      {
+        id: questions.length + 1,
+        question: "",
+        options: ["", "", "", ""],
+        correctAnswer: "",
+      },
+    ]);
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const url = "http://localhost/Quizappdatabase/uploaddb.php";
+    let fData = new FormData();
+    fData.append("quizname", quizname);
+    fData.append("questions", JSON.stringify(questions));
+    axios
+      .post(url, fData)
+      .then((responce) => {
+        console.log(responce);
+      })
+      .catch((error) => {
+        console.log("Oops Error!" + error);
+      });
+  }
+
+  return (
+    <div>
+      <input
+        placeholder="Set Quiz Name"
+        type="text"
+        value={quizname}
+        onChange={(e) => setQuizName(e.target.value)}
+      />
+      <form onSubmit={(e) => handleSubmit(e)}>
+        {questions.map((question, qIndex) => (
+          <div key={qIndex}>
+            <input
+              placeholder={`Question ${qIndex + 1}`}
+              onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
+              value={question.question}
+              type="text"
+              required
+            />
+            {question.options.map((option, oIndex) => (
+              <input
+                key={oIndex}
+                onChange={(e) =>
+                  handleOptionChange(qIndex, oIndex, e.target.value)
+                }
+                value={option}
+                type="text"
+                placeholder={`Option ${oIndex + 1}`}
+                required
+              />
+            ))}
+            <input
+              onChange={(e) =>
+                handleCorrectAnswerChange(qIndex, e.target.value)
+              }
+              type="text"
+              value={question.correctAnswer}
+              placeholder={`Correct Correct Answer`}
+            />
+            required
+          </div>
+        ))}
+        <button type="button" onClick={() => addQuestion()}>
+          Add Another Question
+        </button>
+        <button type="submit"> Save Quiz</button>
+      </form>
+      <button
+        style={{ marginTop: "12px", fontSize: "2vw" }}
+        onClick={() => console.log(questions)}
+      >
+        Log Array
+      </button>
+    </div>
+  );
+}

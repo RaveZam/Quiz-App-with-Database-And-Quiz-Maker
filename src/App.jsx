@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Mainpage from "./Mainpage";
 import Quiz from "./quiz/Quiz";
+import Quizmaker from "./quizmakersection/Quizmaker";
 
 import "./App.css";
 
@@ -57,8 +58,8 @@ function App() {
               />
             }
           />
+          <Route path="Quizmaker" element={<Quizmaker />} />
         </Routes>
-        {/* <Routes path="/Finishscreen" element={<Finishscreen />} /> */}
       </BrowserRouter>
     </div>
   );

@@ -107,7 +107,6 @@ export default function Quiz({ fastmode, database }) {
 
       setshowCorrectAnswer(true);
       setOptionClicked(option);
-
       setTimeout(() => {
         setcurrentQuestionIndex(currentQuestionIndex + 1);
         setshowCorrectAnswer(false);
@@ -118,9 +117,7 @@ export default function Quiz({ fastmode, database }) {
       }, 3000);
     }, 3000);
   }
-
   // *************************************************** BUTTON FUNCTION***************************************************
-
   const [timerpopup, settimerpopup] = useState(true);
   const [timer, setTimer] = useState(3);
   const [canspeak, setcanspeak] = useState(false);

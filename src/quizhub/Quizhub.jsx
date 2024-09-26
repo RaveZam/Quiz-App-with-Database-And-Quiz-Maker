@@ -11,6 +11,7 @@ export default function Quizhub({
   setfastmode,
   database,
 }) {
+  const navigate = useNavigate();
   return (
     <div className={styles.page}>
       <h2 style={{ color: "white" }}>Recently Published</h2>
@@ -29,6 +30,7 @@ export default function Quizhub({
             database={database}
           />
         ))}
+        <button onClick={() => navigate("/Quizmaker")}> Make Quiz </button>
       </div>
     </div>
   );
