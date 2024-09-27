@@ -23,7 +23,7 @@ export default function Quizmaker() {
         difficultylevel: "",
         slides: "",
         database: "",
-        bgimg: "",
+        bgimg: null,
       },
     ],
   ]);
@@ -55,6 +55,10 @@ export default function Quizmaker() {
     setQuestions(newQuestions);
   };
 
+  const handleThumbnailChange = (file) => {
+    setQuizdescription([{ ...quizDescriptions[0], bgimg: file }]);
+  };
+
   function addQuestion() {
     setQuestions([
       ...questions,
@@ -70,40 +74,64 @@ export default function Quizmaker() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setQuizdescription([{ ...quizDescriptions[0], quizname: quizname }]);
-    setQuizdescription([{ ...quizDescriptions[0], database: quizname }]);
+    setQuizdescription([
+      {
+        ...quizDescriptions[0],
+        quizname: quizname,
+        database: quizname,
+        slides: questions.length,
+      },
+    ]);
 
-    // const url = "http://localhost/Quizappdatabase/uploaddb.php";
-    // const formData = new FormData();
+    const url = "http://localhost/Quizappdatabase/uploaddb.php";
+    const formData = new FormData();
 
-    // formData.append("quizname", quizname);
-    // formData.append(
-    //   "questions",
-    //   JSON.stringify(
-    //     questions.map((q) => ({
-    //       question: q.question,
-    //       options: q.options,
-    //       correctAnswer: q.correctAnswer,
-    //     }))
-    //   )
-    // );
+    formData.append("quizname", quizname);
+    formData.append(
+      "quizDescriptions",
+      JSON.stringify(
+        quizDescriptions.map((d) => ({
+          quizname: d.quizname,
+          quizdescription: d.quizdescription,
+          madeby: d.madeby,
+          difficultylevel: d.difficultylevel,
+          slides: d.slides,
+          database: d.database,
+        }))
+      )
+    );
 
-    // questions.forEach((question) => {
-    //   if (question.gif) {
-    //     formData.append(`gifs[]`, question.gif);
-    //   }
-    // });
+    if (quizDescriptions[0].bgimg) {
+      formData.append("bgimg", quizDescriptions[0].bgimg);
+    }
 
-    // axios
-    //   .post(url, formData, {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   })
-    //   .then((response) => {
-    //     console.log("Quiz saved successfully", response);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Oops Error!", error);
-    //   });
+    formData.append(
+      "questions",
+      JSON.stringify(
+        questions.map((q) => ({
+          question: q.question,
+          options: q.options,
+          correctAnswer: q.correctAnswer,
+        }))
+      )
+    );
+
+    questions.forEach((question) => {
+      if (question.gif) {
+        formData.append(`gifs[]`, question.gif);
+      }
+    });
+
+    axios
+      .post(url, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        console.log("Quiz saved successfully", response);
+      })
+      .catch((error) => {
+        console.log("Oops Error!", error);
+      });
   }
   return (
     <>
@@ -124,21 +152,21 @@ export default function Quizmaker() {
               placeholder="Give a brief Description"
               onChange={(e) =>
                 setQuizdescription([
-                  { ...quizDescriptions[0], quizdesc: e.target.value },
+                  { ...quizDescriptions[0], quizdescription: e.target.value },
                 ])
               }
             />
             <br />
             <label htmlFor="quizcreator">Name Of Creator</label>
             <input
+              type="text"
+              placeholder="Name"
+              name="quizcreator"
               onChange={(e) =>
                 setQuizdescription([
                   { ...quizDescriptions[0], madeby: e.target.value },
                 ])
               }
-              placeholder="Name"
-              type="text"
-              name="quizcreator"
             />
 
             <label htmlFor="difficulty">Difficulty Level</label>
@@ -150,6 +178,11 @@ export default function Quizmaker() {
               }
               type="text"
               placeholder="Easy/Medium/Hard"
+            />
+            <input
+              type="file"
+              accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
+              onChange={(e) => handleThumbnailChange(e.target.files[0])}
             />
           </div>
           {questions.map((question, qIndex) => (
@@ -193,7 +226,7 @@ export default function Quizmaker() {
           </button>
           <button type="submit">Save Quiz</button>
           <button
-            onClick={() => console.log(quizDescriptions[0])}
+            onClick={() => console.log(quizDescriptions[0].bgimg)}
             type="button"
           >
             Log Array
