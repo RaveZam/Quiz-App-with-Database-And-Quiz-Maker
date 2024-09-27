@@ -10,7 +10,7 @@ export default function Quizmaker() {
       question: "",
       options: ["", "", "", ""],
       correctAnswer: "",
-      gif: null,
+      gif: "",
     },
   ]);
 
@@ -23,7 +23,7 @@ export default function Quizmaker() {
         difficultylevel: "",
         slides: "",
         database: "",
-        bgimg: null,
+        bgimg: "",
       },
     ],
   ]);
@@ -74,14 +74,6 @@ export default function Quizmaker() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setQuizdescription([
-      {
-        ...quizDescriptions[0],
-        quizname: quizname,
-        database: quizname,
-        slides: questions.length,
-      },
-    ]);
 
     const url = "http://localhost/Quizappdatabase/uploaddb.php";
     const formData = new FormData();
@@ -95,7 +87,7 @@ export default function Quizmaker() {
           quizdescription: d.quizdescription,
           madeby: d.madeby,
           difficultylevel: d.difficultylevel,
-          slides: d.slides,
+          slides: questions.length,
           database: d.database,
         }))
       )
@@ -137,15 +129,24 @@ export default function Quizmaker() {
     <>
       <Header />
       <div>
-        <input
-          placeholder="Set Quiz Name"
-          type="text"
-          value={quizname}
-          onChange={(e) => setQuizName(e.target.value)}
-          required
-        />
         <form onSubmit={handleSubmit}>
           <div className={styles.quizdescriptioncontainer}>
+            <input
+              placeholder="Set Quiz Name"
+              type="text"
+              value={quizname}
+              onChange={(e) =>
+                setQuizName(e.target.value) &
+                setQuizdescription([
+                  {
+                    ...quizDescriptions[0],
+                    quizname: e.target.value,
+                    database: e.target.value,
+                  },
+                ])
+              }
+              required
+            />
             <input
               type="text"
               name="quizdesc"
