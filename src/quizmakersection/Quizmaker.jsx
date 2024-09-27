@@ -119,7 +119,7 @@ export default function Quizmaker() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
-        console.log("Quiz saved successfully", response);
+        console.log("Quiz saved successfully", response.data.status);
       })
       .catch((error) => {
         console.log("Oops Error!", error);
