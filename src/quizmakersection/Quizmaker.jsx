@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import Header from "../header/Header";
+import Ingameheader from "../header/Ingameheader";
 import styles from "./quizmaker.module.css";
 
 export default function Quizmaker() {
@@ -127,8 +127,8 @@ export default function Quizmaker() {
   }
   return (
     <>
-      <Header />
-      <div>
+      <Ingameheader />
+      <div className={styles.quizmakercontainer}>
         <form onSubmit={handleSubmit}>
           <div className={styles.quizdescriptioncontainer}>
             <input
@@ -148,6 +148,7 @@ export default function Quizmaker() {
               required
             />
             <input
+              required
               type="text"
               name="quizdesc"
               placeholder="Give a brief Description"
@@ -160,6 +161,7 @@ export default function Quizmaker() {
             <br />
             <label htmlFor="quizcreator">Name Of Creator</label>
             <input
+              required
               type="text"
               placeholder="Name"
               name="quizcreator"
@@ -172,6 +174,7 @@ export default function Quizmaker() {
 
             <label htmlFor="difficulty">Difficulty Level</label>
             <input
+              required
               onChange={(e) =>
                 setQuizdescription([
                   { ...quizDescriptions[0], difficultylevel: e.target.value },
@@ -182,6 +185,7 @@ export default function Quizmaker() {
             />
             <label htmlFor="bgimg"> Thumbnail Image </label>
             <input
+              required
               name="bgimg"
               type="file"
               accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
@@ -210,6 +214,7 @@ export default function Quizmaker() {
                 />
               ))}
               <input
+                required
                 onChange={(e) =>
                   handleCorrectAnswerChange(qIndex, e.target.value)
                 }
@@ -218,6 +223,7 @@ export default function Quizmaker() {
                 placeholder={`Correct Answer`}
               />
               <input
+                required
                 type="file"
                 accept="image/gif"
                 onChange={(e) => handleGifChange(qIndex, e.target.files[0])}
