@@ -180,14 +180,16 @@ export default function Quizmaker() {
               type="text"
               placeholder="Easy/Medium/Hard"
             />
+            <label htmlFor="bgimg"> Thumbnail Image </label>
             <input
+              name="bgimg"
               type="file"
               accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
               onChange={(e) => handleThumbnailChange(e.target.files[0])}
             />
           </div>
           {questions.map((question, qIndex) => (
-            <div key={qIndex}>
+            <div className={styles.questionMakerContainer} key={qIndex}>
               <input
                 placeholder={`Question ${qIndex + 1}`}
                 onChange={(e) => handleQuestionChange(qIndex, e.target.value)}

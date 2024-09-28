@@ -1,0 +1,35 @@
+body {
+}
+
+.quizdescriptioncontainer {
+  background-color: rgb(30, 30, 30);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  padding: 4%;
+}
+
+.quizdescriptioncontainer input {
+  width: 40%;
+  margin: 4px;
+}
+.quizdescriptioncontainer label {
+  text-align: left;
+}
+
+.questionMakerContainer {
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+}
+
+.questionMakerContainer input {
+  width: 50%;
+}
+
+input {
+  padding: 4px;
+  border-radius: 8px;
+  font-size: 1.2vw;
+}
