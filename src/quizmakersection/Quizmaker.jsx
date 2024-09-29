@@ -131,6 +131,17 @@ export default function Quizmaker() {
       <div className={styles.quizmakercontainer}>
         <form onSubmit={handleSubmit}>
           <div className={styles.quizdescriptioncontainer}>
+            <h2> Create / </h2>
+            <h1
+              style={{
+                color: "white",
+                fontFamily: "Manrope",
+                fontWeight: "400",
+                marginBottom: "4px",
+              }}
+            >
+              New Quiz
+            </h1>
             <input
               placeholder="Set Quiz Name"
               type="text"
@@ -148,6 +159,7 @@ export default function Quizmaker() {
               required
             />
             <input
+              className={styles.descbox}
               required
               type="text"
               name="quizdesc"
@@ -183,10 +195,11 @@ export default function Quizmaker() {
               type="text"
               placeholder="Easy/Medium/Hard"
             />
-            <label htmlFor="bgimg"> Thumbnail Image </label>
+            <label htmlFor="file"> Thumbnail Image </label>
             <input
+              id="file"
+              className={styles.gifimginput}
               required
-              name="bgimg"
               type="file"
               accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
               onChange={(e) => handleThumbnailChange(e.target.files[0])}
@@ -194,6 +207,7 @@ export default function Quizmaker() {
           </div>
           {questions.map((question, qIndex) => (
             <div className={styles.questionMakerContainer} key={qIndex}>
+              <h1 style={{ color: "white" }}> Question {qIndex + 1} </h1>
               <input
                 placeholder={`Question ${qIndex + 1}`}
                 onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
@@ -222,7 +236,13 @@ export default function Quizmaker() {
                 value={question.correctAnswer}
                 placeholder={`Correct Answer`}
               />
+              <h3
+                style={{ color: "white", margin: "4px 0", marginTop: "12px" }}
+              >
+                Gif File: (Required)
+              </h3>
               <input
+                className={styles.gifimginput}
                 required
                 type="file"
                 accept="image/gif"
@@ -230,16 +250,18 @@ export default function Quizmaker() {
               />
             </div>
           ))}
-          <button type="button" onClick={addQuestion}>
-            Add Another Question
-          </button>
-          <button type="submit">Save Quiz</button>
-          <button
-            onClick={() => console.log(quizDescriptions[0].bgimg)}
-            type="button"
-          >
-            Log Array
-          </button>
+          <div className={styles.quizmakerbuttons}>
+            <button
+              className={styles.quizmakerbtn}
+              type="button"
+              onClick={addQuestion}
+            >
+              Add Question
+            </button>
+            <button className={styles.quizmakerbtn} type="submit">
+              Save Quiz
+            </button>
+          </div>
         </form>
       </div>
     </>

@@ -1,39 +1,102 @@
 .quizmakercontainer {
-  background-color: #000000;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cg %3E%3Ccircle fill='%23000000' cx='400' cy='400' r='600'/%3E%3Ccircle fill='%23230046' cx='400' cy='400' r='500'/%3E%3Ccircle fill='%232f0052' cx='400' cy='400' r='400'/%3E%3Ccircle fill='%233b075e' cx='400' cy='400' r='300'/%3E%3Ccircle fill='%2348156a' cx='400' cy='400' r='200'/%3E%3Ccircle fill='%23552277' cx='400' cy='400' r='100'/%3E%3C/g%3E%3C/svg%3E");
-  background-attachment: fixed;
+  background-color: #1f0f24;
   background-size: cover;
-  padding-top: 4%;
+  padding-top: 8%;
+  padding-left: 10%;
+  height: 100%;
 }
 .quizdescriptioncontainer {
   display: flex;
   flex-direction: column;
-  text-align: left;
-  padding: 4%;
+}
+.quizdescriptioncontainer h2 {
+  font-weight: 200;
+  color: #bf8fcc;
+}
+.quizdescriptioncontainer h2::after {
+  content: "New Quiz";
+  color: #ffffff;
 }
 
 .quizdescriptioncontainer input {
   width: 40%;
-  margin: 4px;
+  margin: 12px 0;
 }
 
 .questionMakerContainer {
+  margin-top: 4%;
   display: flex;
   flex-direction: column;
-  margin: 4%;
 }
 
 .questionMakerContainer input {
   width: 50%;
-  margin: 4px;
+  margin: 8px 0;
 }
 
 input {
-  padding: 4px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 12px;
   font-size: 1.2vw;
+  background-color: #2e1736;
+  color: #bf8fcc !important;
+  border: 1px solid #5c2e6b;
+}
+
+input::placeholder {
+  color: #bf8fcc !important;
 }
 
 label {
+  margin-top: 4px;
   color: white;
+}
+
+.descbox {
+  padding-bottom: 10%;
+}
+
+.gifimginput::-webkit-file-upload-button {
+  background: none;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #5c2e6b;
+  color: #bf8fcc;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.gifimginput::-webkit-file-upload-button:hover {
+  background-color: #201025;
+}
+
+.quizmakerbuttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+}
+
+.quizmakerbtn {
+  width: 50%;
+  font-size: 1.5vw;
+  margin: 12px 0;
+  padding: 16px;
+  border: none;
+  color: white;
+  background-color: #2e1736;
+  border-radius: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+.quizmakerbtn:hover {
+  background-color: #4b2458;
+}
+.quizmakerbtn:nth-child(2) {
+  background-color: #7e059f;
+  margin-bottom: 4%;
+}
+.quizmakerbtn:nth-child(2):hover {
+  background-color: #c803ff;
+  transform: scale(1.01);
 }
