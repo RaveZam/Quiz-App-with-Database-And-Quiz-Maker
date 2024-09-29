@@ -128,7 +128,7 @@ export default function Quiz({ fastmode, database }) {
   } else if (timer == -1 && timerpopup) {
     settimerpopup(!timerpopup);
     setcanspeak(true);
-    // startTimer();
+    startTimer();
   }
 
   return (

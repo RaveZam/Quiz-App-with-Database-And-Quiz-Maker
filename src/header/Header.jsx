@@ -24,10 +24,6 @@ export default function Header() {
 
           <img className={styles.icon} src="./images/user.png" alt="" />
         </div>
-        {/* <div className={styles.account}>
-          <img src="" alt="" />
-          <h1>Runielle Raven</h1>
-        </div> */}
       </div>
     </div>
   );
