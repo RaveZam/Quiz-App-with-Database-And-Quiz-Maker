@@ -3,7 +3,7 @@
 .header {
   width: 100%;
   height: 10vh;
-  background-color: rgba(255, 255, 255, 0.89);
+  background-color: #171217;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,8 +12,11 @@
 }
 
 .title {
-  font-size: 4vw;
-  padding: 20px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  margin: 12px;
+  font-size: 3vw;
 }
 
 .accountsection {
@@ -29,11 +32,12 @@
   /* border: solid 1px black; */
   border: none;
   background-color: white;
-  margin: 0 8px;
+  margin: 0 6px;
   color: black;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1vw;
+  color: black;
 }
 
 .searchbar {
@@ -41,16 +45,19 @@
   font-size: 1.2vw;
   border-radius: 50px;
   border: none;
+  background-color: #36263b;
 }
 
 .icon {
-  margin-left: 32px;
+  margin: 0 8px;
   width: 40px;
   transform: translateY(30%);
+  filter: invert(1);
 }
 
 .ingameheader {
   width: 100%;
+  height: 10vh;
   background-color: rgba(0, 0, 0, 0);
   backdrop-filter: blur(20px);
   position: absolute;

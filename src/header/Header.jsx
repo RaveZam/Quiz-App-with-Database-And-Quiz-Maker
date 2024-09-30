@@ -4,7 +4,21 @@ import styles from "./header.module.css";
 export default function Header() {
   return (
     <div className={styles.header}>
-      <div>
+      <div
+        style={{
+          cursor: "pointer",
+          display: "flex",
+          width: "20%",
+        }}
+      >
+        <svg
+          className={styles.logo}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 480 480"
+          fill="%23808"
+        >
+          <path d="M120 120h120v120H120zM0 240h120v120H0zM120 360h120v120H120zM0 0h120v120H0zM360 120h120v120H360zM240 240h120v120H240zM360 360h120v120H360zM240 0h120v120H240z"></path>
+        </svg>
         <h1
           onClick={() => console.log("hello from header")}
           className={styles.title}
@@ -16,12 +30,14 @@ export default function Header() {
         <input className={styles.searchbar} type="text" placeholder="Search" />
       </div>
       <div className={styles.accountsection}>
-        <div className={styles.noaccount}>
+        <div className={styles.account}>
           <button className={styles.btn}> Login </button>
-          <button style={{ backgroundColor: "#DD1188" }} className={styles.btn}>
+          <button
+            style={{ backgroundColor: "#9405BD", color: "white" }}
+            className={styles.btn}
+          >
             Sign Up
           </button>
-
           <img className={styles.icon} src="./images/user.png" alt="" />
         </div>
       </div>

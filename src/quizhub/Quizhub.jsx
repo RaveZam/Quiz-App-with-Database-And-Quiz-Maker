@@ -30,7 +30,12 @@ export default function Quizhub({
             database={database}
           />
         ))}
-        <button onClick={() => navigate("/Quizmaker")}> Make Quiz </button>
+        <button
+          style={{ height: "40%", borderRadius: "50px" }}
+          onClick={() => navigate("/Quizmaker")}
+        >
+          Create Quiz
+        </button>
       </div>
     </div>
   );

@@ -1,0 +1,22 @@
+To Do list: 
+
+Overhaul the Lobby
+
+Add Preloaders then Loading Screens
+
+Adjust Fonts for 8-bit style ingame
+
+fix found bugs such as failed loading screen. 
+
+implement search function
+
+add login/register feature. have username display its profile pic at the top left corner
+
+add a customize profile screen 
+
+fix bugs regarding sessions 
+
+add a leaderboards function that displays the profile pic and username of the previous 
+quiz takers in descending format. atleast 5 players
+
+
