@@ -13,19 +13,20 @@ export default function Quizhub({
 }) {
   const navigate = useNavigate();
   return (
-    <div className={styles.page}>
+    <div style={{ marginTop: "2%" }} className={styles.page}>
       <h2
         style={{
           color: "white",
           fontWeight: "600",
           fontSize: "3vw",
-          marginBottom: "8px",
         }}
       >
-        Welcome to AnswerIt!
+        Welcome to AnswerIt
       </h2>
-      <span>Here are </span>
-      <div className={styles.quizhub}>
+      <span style={{ color: "#B59CBA" }}>
+        Here are some quizzes you can join or create your own!
+      </span>
+      <div style={{ marginTop: "16px" }} className={styles.quizhub}>
         {quizzes.map((quiz) => (
           <QuizTopics
             key={quiz.id_quiznames}

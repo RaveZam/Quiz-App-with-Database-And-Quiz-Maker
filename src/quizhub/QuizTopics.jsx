@@ -28,11 +28,15 @@ export default function QuizTopics({
     setDatabase(quizdatabase);
   }
 
+  const longText = quizdesc;
+  const maxLength = 30;
+
   return (
     <>
       <div className={styles.quizcontainer}>
         <div className={styles.quizbg}>
           <img className={styles.quizbgimg} src={quizbg} alt="" />
+          <button className={styles.overlaybutton}> Play Now</button>
         </div>
         <div className={styles.quiztxtdescription}>
           <h1
@@ -41,12 +45,27 @@ export default function QuizTopics({
           >
             {quizname}
           </h1>
+          <span
+            style={{
+              whiteSpace: "nowrap",
+              color: "#B59CBA",
+              fontSize: "0.9vw",
+            }}
+          >
+            <p>
+              {longText.length > maxLength
+                ? longText.substring(0, maxLength) + "..."
+                : longText}
+            </p>
+          </span>
           <div
             style={{
               display: "flex",
               whiteSpace: "nowrap",
               color: "#B59CBA",
-              fontSize: "0.9vw",
+              fontSize: "0.8vw",
+              marginTop: "1px",
+              opacity: "0.9",
             }}
           >
             <p style={{ marginRight: "4px" }}> Difficulty: {difficulty} </p>
