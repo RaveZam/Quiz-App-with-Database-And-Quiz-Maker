@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 
-export default function Header() {
+export default function Header({ searchTerm, setSearchTerm }) {
   const navigate = useNavigate();
   return (
     <div className={styles.header}>
@@ -28,10 +28,19 @@ export default function Header() {
         </h1>
       </div>
       <div className={styles.searchsection}>
-        <input className={styles.searchbar} type="text" placeholder="Search" />
+        <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.searchbar}
+          type="text"
+          placeholder="Search"
+        />
       </div>
       <div className={styles.accountsection}>
         <div className={styles.account}>
+          <button onClick={() => navigate("/Quizmaker")} className={styles.btn}>
+            Create Quiz
+          </button>
           <button className={styles.btn}> Login </button>
           <button
             style={{ backgroundColor: "#9405BD", color: "white" }}

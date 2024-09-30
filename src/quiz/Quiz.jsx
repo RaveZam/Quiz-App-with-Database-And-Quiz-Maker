@@ -131,7 +131,7 @@ export default function Quiz({ fastmode, database }) {
   }
   // *************************************************** BUTTON FUNCTION***************************************************
   const [timerpopup, settimerpopup] = useState(true);
-  const [timer, setTimer] = useState(4);
+  const [timer, setTimer] = useState(6);
   const [canspeak, setcanspeak] = useState(false);
   if (timer >= 0) {
     setTimeout(() => {

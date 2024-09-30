@@ -10,7 +10,11 @@ export default function Quizhub({
   fastmode,
   setfastmode,
   database,
+  searchTerm,
 }) {
+  const filteredQuizzes = quizzes.filter((quiz) =>
+    quiz.quizname.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div style={{ marginTop: "2%" }} className={styles.page}>
       <h2
@@ -26,7 +30,7 @@ export default function Quizhub({
         Here are some quizzes you can join or create your own!
       </span>
       <div style={{ marginTop: "16px" }} className={styles.quizhub}>
-        {quizzes.map((quiz) => (
+        {filteredQuizzes.slice(0, 10).map((quiz) => (
           <QuizTopics
             key={quiz.id_quiznames}
             quizname={quiz.quizname}
@@ -43,9 +47,6 @@ export default function Quizhub({
           />
         ))}
       </div>
-      {/* <div className={styles.createsection}>
-        <button className={styles.createbutton}> + Create Quiz!</button>
-      </div> */}
     </div>
   );
 }

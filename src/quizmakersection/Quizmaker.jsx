@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import Ingameheader from "../header/Ingameheader";
 import styles from "./quizmaker.module.css";
+import { useEffect } from "react";
+import Preloader from "../preloaders/Preloader";
 
 export default function Quizmaker() {
   const [questions, setQuestions] = useState([
@@ -125,8 +127,35 @@ export default function Quizmaker() {
         console.log("Oops Error!", error);
       });
   }
+
+  const [loading, isLoading] = useState(true);
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setOpacity(0);
+      setTimeout(() => {
+        isLoading(false);
+      }, 500);
+    }, 1000);
+  }, []);
   return (
     <>
+      {loading ? (
+        <div
+          style={{
+            opacity: opacity,
+            transition: "all 0.4s ease-in-out",
+            position: "absolute",
+            height: "100vh",
+            backgroundColor: "#2e1736",
+          }}
+        >
+          <Preloader />
+        </div>
+      ) : (
+        ""
+      )}
       <Ingameheader />
       <div className={styles.quizmakercontainer}>
         <form onSubmit={handleSubmit}>

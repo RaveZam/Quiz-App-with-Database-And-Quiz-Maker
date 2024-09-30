@@ -19,7 +19,7 @@ export default function Mainpage({
       setTimeout(() => {
         isLoading(false);
       }, 500);
-    }, 1200);
+    }, 1000);
 
     const handlePopState = () => {
       setfastmode(false);
@@ -30,13 +30,15 @@ export default function Mainpage({
       window.removeEventListener("popstate", null);
     };
   }, []);
+
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <>
       {loading ? (
         <div
           style={{
             opacity: opacity,
-            transition: "all 0.3s ease-in-out",
+            transition: "all 0.4s ease-in-out",
             position: "absolute",
             height: "100vh",
             backgroundColor: "#2e1736",
@@ -48,13 +50,14 @@ export default function Mainpage({
         ""
       )}
       <>
-        <Header />
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Quizhub
           quizzes={quizzes}
           fastmode={fastmode}
           setfastmode={setfastmode}
           setDatabase={setDatabase}
           database={database}
+          searchTerm={searchTerm}
         />
       </>
     </>
