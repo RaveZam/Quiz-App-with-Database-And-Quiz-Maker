@@ -9,6 +9,7 @@
   align-items: center;
   border: none;
   z-index: 100;
+  border-bottom: 2px solid rgba(199, 199, 199, 0.401);
 }
 
 .title {

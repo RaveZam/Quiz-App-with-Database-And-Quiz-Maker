@@ -1,56 +1,32 @@
-h2 {
-  margin: 20px;
+.page {
+  width: 50vw;
+  margin: 6%;
 }
 
 .quizhub {
-  display: flex;
-  /* background-color: #330000;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 400'%3E%3Cdefs%3E%3CradialGradient id='a' cx='396' cy='281' r='514' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23D18'/%3E%3Cstop offset='1' stop-color='%23330000'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='400' y1='148' x2='400' y2='333'%3E%3Cstop offset='0' stop-color='%23FA3' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23FA3' stop-opacity='0.5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='800' height='400'/%3E%3Cg fill-opacity='0.4'%3E%3Ccircle fill='url(%23b)' cx='267.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='532.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='400' cy='30' r='300'/%3E%3C/g%3E%3C/svg%3E");
-  background-attachment: fixed;
-  background-size: cover; */
-  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  /* height: 100%; */
   background-color: #171217;
-}
-
-.quizbg {
-  /* background-color: red; */
-  display: flex;
-  align-self: center;
-}
-.quizbgimg {
-  border-radius: 20px;
-  width: 200px;
-  height: 200px;
-  opacity: 0.9;
-  background-position: center;
-  transition: all 0.3s ease-in-out;
+  gap: 3%;
+  place-items: center;
 }
 
 .quizcontainer {
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  margin: 14px;
-  border-radius: 5px;
-  max-width: 30%;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.199);
-  width: 15%;
-  z-index: 1;
-  /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.581);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8.8px);
-  -webkit-backdrop-filter: blur(8.8px);
-  transition: all 0.5s ease-in-out;
-  justify-content: space-between !important ;
 }
 
-.quizcontainer:hover {
-  background: rgba(255, 255, 255, 0.385);
-  .quizbgimg {
-    opacity: 1;
-  }
+.mainquizwrapper {
+  background-color: blue;
+  width: 50vw;
+}
+
+.quizbgimg {
+  width: 250px;
+  height: 150px;
+  background-position: center;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .btn {
@@ -148,19 +124,8 @@ h2 {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  /* margin-top: 1000px; */
   background-color: white;
   flex-direction: column;
-}
-
-@keyframes slideDown {
-  0% {
-    margin-top: -100px;
-  }
-
-  100% {
-    margin-top: 0px;
-  }
 }
 
 .popupinfo {

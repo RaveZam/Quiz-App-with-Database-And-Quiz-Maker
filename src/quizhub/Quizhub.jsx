@@ -14,7 +14,17 @@ export default function Quizhub({
   const navigate = useNavigate();
   return (
     <div className={styles.page}>
-      <h2 style={{ color: "white" }}>Recently Published</h2>
+      <h2
+        style={{
+          color: "white",
+          fontWeight: "600",
+          fontSize: "3vw",
+          marginBottom: "8px",
+        }}
+      >
+        Welcome to AnswerIt!
+      </h2>
+      <span>Here are </span>
       <div className={styles.quizhub}>
         {quizzes.map((quiz) => (
           <QuizTopics
@@ -28,14 +38,16 @@ export default function Quizhub({
             quizdatabase={quiz.database}
             setDatabase={setDatabase}
             database={database}
+            slide={quiz.slides}
+            difficulty={quiz.difficultylevel}
           />
         ))}
-        <button
+        {/* <button
           style={{ height: "40%", borderRadius: "50px" }}
           onClick={() => navigate("/Quizmaker")}
         >
           Create Quiz
-        </button>
+        </button> */}
       </div>
     </div>
   );

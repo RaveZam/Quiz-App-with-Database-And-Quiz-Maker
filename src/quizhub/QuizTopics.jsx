@@ -14,7 +14,8 @@ export default function QuizTopics({
   quizbg,
   madeby,
   quizdatabase,
-  database,
+  slide,
+  difficulty,
 }) {
   const [popup, showpopup] = useState(false);
   const [gamestart, setgamestart] = useState(false);
@@ -33,20 +34,34 @@ export default function QuizTopics({
         <div className={styles.quizbg}>
           <img className={styles.quizbgimg} src={quizbg} alt="" />
         </div>
-
         <div className={styles.quiztxtdescription}>
-          <h1 className={styles.quiztitle}> {quizname}</h1>
+          <h1
+            style={{ fontWeight: "300", color: "white" }}
+            className={styles.quiztitle}
+          >
+            {quizname}
+          </h1>
+          <div
+            style={{
+              display: "flex",
+              whiteSpace: "nowrap",
+              color: "#B59CBA",
+              fontSize: "0.9vw",
+            }}
+          >
+            <p style={{ marginRight: "4px" }}> Difficulty: {difficulty} </p>
+            <p className={styles.quizdesc}>{slide} Questions</p>
+          </div>
 
-          <p className={styles.quizdesc}>{quizdesc}</p>
-
-          <button
+          {/* <button
             onClick={() => showprestart()}
             className={`${styles.btn} ${styles.btn1}`}
           >
             Take Quiz
-          </button>
+          </button> */}
         </div>
       </div>
+
       {popup ? (
         <div className={styles.overlay}>
           <div className={`${styles.popup} ${popup ? styles.slide : ""}`}>
