@@ -11,7 +11,6 @@ export default function Quizhub({
   setfastmode,
   database,
 }) {
-  const navigate = useNavigate();
   return (
     <div style={{ marginTop: "2%" }} className={styles.page}>
       <h2
@@ -43,13 +42,10 @@ export default function Quizhub({
             difficulty={quiz.difficultylevel}
           />
         ))}
-        {/* <button
-          style={{ height: "40%", borderRadius: "50px" }}
-          onClick={() => navigate("/Quizmaker")}
-        >
-          Create Quiz
-        </button> */}
       </div>
+      {/* <div className={styles.createsection}>
+        <button className={styles.createbutton}> + Create Quiz!</button>
+      </div> */}
     </div>
   );
 }

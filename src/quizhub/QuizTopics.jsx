@@ -34,7 +34,7 @@ export default function QuizTopics({
   return (
     <>
       <div className={styles.quizcontainer}>
-        <div className={styles.quizbg}>
+        <div onClick={() => showprestart()} className={styles.quizbg}>
           <img className={styles.quizbgimg} src={quizbg} alt="" />
           <button className={styles.overlaybutton}> Play Now</button>
         </div>
@@ -71,13 +71,6 @@ export default function QuizTopics({
             <p style={{ marginRight: "4px" }}> Difficulty: {difficulty} </p>
             <p className={styles.quizdesc}>{slide} Questions</p>
           </div>
-
-          {/* <button
-            onClick={() => showprestart()}
-            className={`${styles.btn} ${styles.btn1}`}
-          >
-            Take Quiz
-          </button> */}
         </div>
       </div>
 

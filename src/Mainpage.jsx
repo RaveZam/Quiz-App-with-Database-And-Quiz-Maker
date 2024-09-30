@@ -19,7 +19,7 @@ export default function Mainpage({
       setTimeout(() => {
         isLoading(false);
       }, 500);
-    }, 800);
+    }, 1200);
 
     const handlePopState = () => {
       setfastmode(false);

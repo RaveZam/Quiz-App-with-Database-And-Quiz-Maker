@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 
 export default function Header() {
+  const navigate = useNavigate();
   return (
     <div className={styles.header}>
       <div

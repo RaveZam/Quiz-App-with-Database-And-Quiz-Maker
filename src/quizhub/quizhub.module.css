@@ -1,6 +1,23 @@
+body {
+}
+
 .page {
   width: 50vw;
   margin: 6%;
+}
+.createsection {
+  width: 150vh;
+}
+.createbutton {
+  margin-top: 20px;
+  margin-left: 100%;
+  white-space: nowrap;
+  padding: 12px 16px;
+  border: none;
+  font-size: 1.2vw;
+  border-radius: 20px;
+  background-color: #9405bd;
+  color: white;
 }
 
 .quizhub {
@@ -11,9 +28,6 @@
   background-color: #171217;
   gap: 3%;
   place-items: center;
-}
-
-.quizcontainer {
 }
 
 .mainquizwrapper {

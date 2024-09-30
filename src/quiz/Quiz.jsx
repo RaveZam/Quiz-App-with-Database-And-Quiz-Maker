@@ -8,11 +8,23 @@ import Quizquestions from "./Quizquestions";
 import Timerscreen from "./Timerscreen";
 import success from "/sounds/success.mp3";
 import fail from "/sounds/fail.mp3";
+import Preloader from "../preloaders/Preloader";
 
 export default function Quiz({ fastmode, database }) {
   const navigate = useNavigate();
   const url = "http://localhost/Quizappdatabase/fetch.php";
   const [astronomyquestions, setastronomyquestions] = useState([]);
+  const [loading, isLoading] = useState(true);
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setOpacity(0);
+      setTimeout(() => {
+        isLoading(false);
+      }, 500);
+    }, 1200);
+  }, []);
 
   useEffect(() => {
     if (database) {
@@ -119,7 +131,7 @@ export default function Quiz({ fastmode, database }) {
   }
   // *************************************************** BUTTON FUNCTION***************************************************
   const [timerpopup, settimerpopup] = useState(true);
-  const [timer, setTimer] = useState(3);
+  const [timer, setTimer] = useState(4);
   const [canspeak, setcanspeak] = useState(false);
   if (timer >= 0) {
     setTimeout(() => {
@@ -133,31 +145,48 @@ export default function Quiz({ fastmode, database }) {
 
   return (
     <>
-      <audio ref={successsound} src={success} preload="auto" />
-      <audio ref={failsound} src={fail} preload="auto" />
-
-      <Timerscreen timerpopup={timerpopup} timer={timer} />
-      <Ingameheader />
-      {finish || currentQuestionIndex == astronomyquestions.length ? (
-        <Result
-          astronomyquestions={astronomyquestions}
-          score={score}
-          timerRef={timerRef}
-          navigate={navigate}
-        />
+      {loading ? (
+        <div
+          style={{
+            opacity: opacity,
+            transition: "all 0.3s ease-in-out",
+            position: "absolute",
+            height: "100vh",
+            backgroundColor: "#2e1736",
+          }}
+        >
+          <Preloader />
+        </div>
       ) : (
-        <Quizquestions
-          slideTimer={slideTimer}
-          astronomyquestions={astronomyquestions}
-          currentQuestionIndex={currentQuestionIndex}
-          currentquestion={currentquestion}
-          isDisabled={isDisabled}
-          showCorrectAnswer={showCorrectAnswer}
-          optionClicked={optionClicked}
-          checkcorrectanswer={checkcorrectanswer}
-          canspeak={canspeak}
-        />
+        ""
       )}
+      <>
+        <audio ref={successsound} src={success} preload="auto" />
+        <audio ref={failsound} src={fail} preload="auto" />
+
+        <Timerscreen timerpopup={timerpopup} timer={timer} />
+        <Ingameheader />
+        {finish || currentQuestionIndex == astronomyquestions.length ? (
+          <Result
+            astronomyquestions={astronomyquestions}
+            score={score}
+            timerRef={timerRef}
+            navigate={navigate}
+          />
+        ) : (
+          <Quizquestions
+            slideTimer={slideTimer}
+            astronomyquestions={astronomyquestions}
+            currentQuestionIndex={currentQuestionIndex}
+            currentquestion={currentquestion}
+            isDisabled={isDisabled}
+            showCorrectAnswer={showCorrectAnswer}
+            optionClicked={optionClicked}
+            checkcorrectanswer={checkcorrectanswer}
+            canspeak={canspeak}
+          />
+        )}
+      </>
     </>
   );
 }
