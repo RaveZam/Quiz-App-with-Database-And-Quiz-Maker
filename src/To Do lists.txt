@@ -1,7 +1,5 @@
 To Do list: 
 
-Overhaul the Lobby
-
 Add Preloaders then Loading Screens
 
 Adjust Fonts for 8-bit style ingame
