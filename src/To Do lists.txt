@@ -47,7 +47,9 @@ INNER JOIN xyz_specialization AS S ON p.fk_specialization_id = s.id (can also )
 ORDER BY p.lname;
 
 
-SELECT  
+SELECT 
+
+//statements
 
 
 FROM isu_student AS s
