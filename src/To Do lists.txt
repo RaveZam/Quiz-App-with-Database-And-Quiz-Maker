@@ -16,3 +16,43 @@ add a leaderboards function that displays the profile pic and username of the pr
 quiz takers in descending format. atleast 5 players
 
 
+Advanced Database Codes
+
+
+FROM tbl_enrolment AS e 
+
+inner Join tbl_schedule AS c
+
+ON e.subjectid = s.id
+
+"CONCAT( P.LNAME, ' ', 'P.FIRSTNAME')"
+
+SUBSTRING(p.fname. 1,1) (Choose only the First name AND then how many characaters to splice)
+
+UCASE() to make everything inside upper case
+
+
+SELECT 
+    
+    CONCAT (p.lname, ' '. 'p.firstname ) AS name (optional if you want to arrange certain strings) i think (AS is important)
+    p.lname AS name, (you can use AS anywhere just to alias the names for shortcut)
+    p.gender,
+    pl.code
+
+FROM, `xyz_profile` AS p 
+INNER JOIN xyz_plantilla AS p1 ON p.ID = p1.iD
+
+INNER JOIN xyz_specialization AS S ON p.fk_specialization_id = s.id (can also )
+
+ORDER BY p.lname;
+
+
+SELECT  
+
+
+FROM isu_student AS s
+
+INNER JOIN tbl_Something AS t ON s.something = t.something
+
+
+
