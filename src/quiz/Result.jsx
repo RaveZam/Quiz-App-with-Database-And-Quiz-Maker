@@ -68,7 +68,7 @@ export default function Result({
             navigate("/");
           }}
         >
-          Finsh
+          Finish
         </button>
       </div>
     </div>
