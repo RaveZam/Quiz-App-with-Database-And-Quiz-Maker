@@ -253,3 +253,49 @@ input:checked + .slider::before {
 input:checked + .slider {
   background-color: #7cf46f;
 }
+
+.userinputfield {
+  height: 18px;
+  border-radius: 8px;
+}
+
+.regbutton {
+  font-size: 1.5vw;
+  margin: 12px 0;
+  padding: 16px;
+  border: none;
+  color: white;
+  background-color: #2e1736;
+  border-radius: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.regbutton:hover {
+  background-color: #4b2458;
+}
+
+.registerpopupcontainer {
+  transform: translateY(-11%);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+}
+
+.registerpopup {
+  width: 20%;
+  border-radius: 20px;
+  padding: 12px;
+  background-color: #1f0f24;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #bf8fcc;
+  border: solid 1px #5c2e6b;
+}
