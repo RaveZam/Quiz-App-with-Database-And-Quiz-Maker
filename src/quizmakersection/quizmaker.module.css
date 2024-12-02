@@ -100,3 +100,41 @@ label {
   background-color: #c803ff;
   transform: scale(1.01);
 }
+
+.savedpopupcontainer {
+  display: flex;
+  z-index: 100;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+}
+
+.savepopup {
+  border-radius: 20px;
+  padding: 8px;
+  background-color: #7e059f;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.savebtn {
+  width: 50%;
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.9rem;
+  text-wrap: nowrap;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.hidden {
+  display: none;
+}

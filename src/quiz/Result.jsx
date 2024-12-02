@@ -4,20 +4,15 @@ import { useEffect, useState } from "react";
 import Passedimagecomponents from "./Passedimagecomponents";
 import Failedimagecomponents from "./Failedimagecomponents";
 
-export default function Result({
-  navigate,
-  astronomyquestions,
-  score,
-  timerRef,
-}) {
-  const incorrectanswers = astronomyquestions.length - score;
+export default function Result({ navigate, quizQuestions, score, timerRef }) {
+  const incorrectanswers = quizQuestions.length - score;
   const incorrectanswerpercentage =
-    (incorrectanswers / astronomyquestions.length) * 100;
-  const correctpercentage = (score / astronomyquestions.length) * 100;
+    (incorrectanswers / quizQuestions.length) * 100;
+  const correctpercentage = (score / quizQuestions.length) * 100;
   const [quizpassed, setquizpassed] = useState(false);
 
   useEffect(() => {
-    score > astronomyquestions.length / 2 ? setquizpassed(true) : "";
+    score > quizQuestions.length / 2 ? setquizpassed(true) : "";
   }, []);
 
   return (
@@ -30,9 +25,9 @@ export default function Result({
           {quizpassed ? "Congratulations!" : "Opps! Better Luck Next Time"}
         </h1>
         <h1>{quizpassed ? "You Have Passed" : "You have Failed"}</h1>
-        <h3>Runielle Raven's Score is:</h3>
+        <h3>User's Score is:</h3>
         <h1>
-          {score} / {astronomyquestions.length}
+          {score} / {quizQuestions.length}
         </h1>
         <div className={styles.scorescontainer}>
           <div className={styles.correctanswers}>

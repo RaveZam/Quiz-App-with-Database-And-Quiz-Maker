@@ -12,13 +12,15 @@ import "./App.css";
 
 function App() {
   const [fastmode, setfastmode] = useState(false);
-  const [quizzes, setquizzes] = useState([]);
+
   const [database, setDatabase] = useState(() => {
-    return localStorage.getItem("database") || "";
+    return localStorage.getItem("database") || ""; //extra line just to store the database on a local storage
   });
 
-  const url = "http://localhost/Quizappdatabase/fetchquiz.php";
+  const [quizzes, setquizzes] = useState([]);
+  const url = "http://localhost/Quizappdatabase/fetchquiz.php"; //show fetch quiz php
 
+  //Set All Quizzes Into A Array
   useEffect(() => {
     axios
       .get(url)
@@ -51,8 +53,8 @@ function App() {
             path="/Quiz"
             element={
               <Quiz
-                quizzes={quizzes}
-                setfastmode={setfastmode}
+                // quizzes={quizzes}
+                // setfastmode={setfastmode}
                 fastmode={fastmode}
                 database={database}
               />

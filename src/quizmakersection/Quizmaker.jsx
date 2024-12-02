@@ -4,6 +4,7 @@ import Ingameheader from "../header/Ingameheader";
 import styles from "./quizmaker.module.css";
 import { useEffect } from "react";
 import Preloader from "../preloaders/Preloader";
+import { useNavigate } from "react-router-dom";
 
 export default function Quizmaker() {
   const [questions, setQuestions] = useState([
@@ -73,6 +74,7 @@ export default function Quizmaker() {
       },
     ]);
   }
+  const [showPopUp, setPopUp] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -122,6 +124,7 @@ export default function Quizmaker() {
       })
       .then((response) => {
         console.log("Quiz saved successfully", response.data.status);
+        setPopUp(true);
       })
       .catch((error) => {
         console.log("Oops Error!", error);
@@ -130,6 +133,7 @@ export default function Quizmaker() {
 
   const [loading, isLoading] = useState(true);
   const [opacity, setOpacity] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => {
@@ -139,6 +143,7 @@ export default function Quizmaker() {
       }, 500);
     }, 1000);
   }, []);
+
   return (
     <>
       {loading ? (
@@ -157,20 +162,27 @@ export default function Quizmaker() {
         ""
       )}
       <Ingameheader />
+      <div
+        className={`${styles.savedpopupcontainer} ${
+          showPopUp ? "" : styles.hidden
+        }`}
+      >
+        <div className={styles.savepopup}>
+          <h1 className={styles.savetxt}>Quiz Saved</h1>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+            className={styles.savebtn}
+          >
+            Return
+          </button>
+        </div>
+      </div>
       <div className={styles.quizmakercontainer}>
         <form onSubmit={handleSubmit}>
           <div className={styles.quizdescriptioncontainer}>
             <h2> Create / </h2>
-            <h1
-              style={{
-                color: "white",
-                fontFamily: "Manrope",
-                fontWeight: "400",
-                marginBottom: "4px",
-              }}
-            >
-              New Quiz
-            </h1>
             <input
               placeholder="Set Quiz Name"
               type="text"

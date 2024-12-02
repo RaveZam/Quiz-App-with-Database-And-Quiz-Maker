@@ -40,7 +40,7 @@ export default function QuizTopics({
         </div>
         <div className={styles.quiztxtdescription}>
           <h1
-            style={{ fontWeight: "300", color: "white" }}
+            style={{ fontWeight: "300", color: "white", textWrap: "nowrap" }}
             className={styles.quiztitle}
           >
             {quizname}
@@ -89,8 +89,13 @@ export default function QuizTopics({
             <div className={styles.popupinfo}>
               <h1>{quizname}</h1>
               <span>Made By: {madeby} </span>
-              <span className={styles.difficulty}>Difficulty Level: </span>
-              <span>Questions: 10 </span>
+              <span className={styles.difficulty}>
+                Difficulty Level: {difficulty}{" "}
+              </span>
+              <span>Questions: {slide} </span>
+              <span style={{ opacity: "0.7", fontSize: "0.8vw" }}>
+                {quizdesc}
+              </span>
               <span
                 style={{
                   whiteSpace: "nowrap",

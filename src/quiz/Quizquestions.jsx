@@ -2,7 +2,6 @@ import styles from "./quiz.module.css";
 import answerclick from "/sounds/answerclick.wav";
 import bgmmusic from "/sounds/astronomybgm.mp3";
 import { useEffect } from "react";
-
 import { useRef } from "react";
 
 let array = null;
@@ -17,8 +16,9 @@ export default function Quizquestions({
   canspeak,
 }) {
   const bgref = useRef(null);
-
   const clicksound = useRef(null);
+
+  //This simply pauses the speech synthesis timer to offset the 5 second timer
   useEffect(() => {
     if (canspeak == true) {
       const speakquestion = new SpeechSynthesisUtterance(
@@ -33,9 +33,11 @@ export default function Quizquestions({
     <div className={styles.AstronomyQuiz}>
       <audio ref={clicksound} src={answerclick} preload="auto" />
       <audio ref={bgref} src={bgmmusic} autoPlay loop />
+
       <div className={styles.hidden}>
         {(array = JSON.parse(currentquestion.options))}
       </div>
+
       <div className={styles.questioncontainer}>
         <h1 className={styles.slidetimer}>{slideTimer} Seconds Left!</h1>
         <h1 className={styles.question}>{currentquestion.questions}</h1>

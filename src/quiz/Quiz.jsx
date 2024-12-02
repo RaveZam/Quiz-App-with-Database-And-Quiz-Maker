@@ -11,12 +11,9 @@ import fail from "/sounds/fail.mp3";
 import Preloader from "../preloaders/Preloader";
 
 export default function Quiz({ fastmode, database }) {
-  const navigate = useNavigate();
-  const url = "http://localhost/Quizappdatabase/fetch.php";
-  const [astronomyquestions, setastronomyquestions] = useState([]);
+  //This part is only for the preloader
   const [loading, isLoading] = useState(true);
   const [opacity, setOpacity] = useState(1);
-
   useEffect(() => {
     setTimeout(() => {
       setOpacity(0);
@@ -26,45 +23,59 @@ export default function Quiz({ fastmode, database }) {
     }, 1200);
   }, []);
 
+  const navigate = useNavigate();
+
+  //This Part Saves what quiz is on refresh as a string
   useEffect(() => {
     if (database) {
       localStorage.setItem("database", database);
     }
   }, [database]);
 
+  const [quizQuestions, setquizQuestions] = useState([]);
+
+  const url = "http://localhost/Quizappdatabase/fetch.php";
   useEffect(() => {
-    const storedDatabase = localStorage.getItem("database");
+    const storedDatabase = localStorage.getItem("database"); //finds the database string where it exists in the quizdatabase table.
     let fData = new FormData();
     fData.append("database", storedDatabase);
     axios
       .post(url, fData)
       .then((response) => {
-        setastronomyquestions(response.data);
+        setquizQuestions(response.data); //this automatically receives the response that is encoded from php.
       })
       .catch((error) => {
         console.log("Error posting data:", error);
       });
   }, [database]);
 
-  const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
-  const currentquestion = astronomyquestions[currentQuestionIndex];
   const [score, setScore] = useState(0);
   const [finish, setFinished] = useState(false);
+
   const [showCorrectAnswer, setshowCorrectAnswer] = useState(false);
+
+  const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
+  const currentquestion = quizQuestions[currentQuestionIndex];
+
   const [isDisabled, setDisabled] = useState(false);
-  const [optionClicked, setOptionClicked] = useState("");
-  const slidetimenumber = fastmode ? 5 : 10;
+
+  const [optionClicked, setOptionClicked] = useState(""); //Records the Selected Option to compare the right answer
+
   const successsound = useRef(null);
   const failsound = useRef(null);
+
   // ******* ******************************************** TIMER FUNCTION***************************************************
 
+  const slidetimenumber = fastmode ? 5 : 10;
   const [slideTimer, setSlideTimer] = useState(slidetimenumber);
   const timerRef = useRef();
 
+  //The Timer Function
   const startTimer = () => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
+
     timerRef.current = setInterval(() => {
       setSlideTimer((slideTimer) => {
         if (slideTimer > 0) {
@@ -88,17 +99,18 @@ export default function Quiz({ fastmode, database }) {
   // *************************************************** TIMER FUNCTION***************************************************
 
   // *************************************************** BUTTON FUNCTION**************************************************
+
   function checkcorrectanswer(option) {
     clearInterval(timerRef.current); //pauses the timer when user picks an option
     setDisabled(true); //disable buttons while a question is picked
 
-    if (currentQuestionIndex == astronomyquestions.length - 1) {
+    if (currentQuestionIndex == quizQuestions.length - 1) {
       setTimeout(() => {
         setFinished(true);
       }, 6000);
     }
 
-    //checks if tama yung sagot ni user and sets the score
+    //Checks if the correct answer is chosen depending on the option that is selectedx
     if (option == currentquestion.correctanswer) {
       setScore(score + 1);
       setTimeout(() => {
@@ -109,6 +121,7 @@ export default function Quiz({ fastmode, database }) {
         failsound.current.play();
       }, 3000);
     }
+
     setTimeout(() => {
       setTimeout(() => {
         const speakcorrectanswer = new SpeechSynthesisUtterance(
@@ -133,6 +146,7 @@ export default function Quiz({ fastmode, database }) {
   const [timerpopup, settimerpopup] = useState(true);
   const [timer, setTimer] = useState(6);
   const [canspeak, setcanspeak] = useState(false);
+  //CountDown
   if (timer >= 0) {
     setTimeout(() => {
       setTimer(timer - 1);
@@ -163,12 +177,12 @@ export default function Quiz({ fastmode, database }) {
       <>
         <audio ref={successsound} src={success} preload="auto" />
         <audio ref={failsound} src={fail} preload="auto" />
-
         <Timerscreen timerpopup={timerpopup} timer={timer} />
+
         <Ingameheader />
-        {finish || currentQuestionIndex == astronomyquestions.length ? (
+        {finish || currentQuestionIndex == quizQuestions.length ? (
           <Result
-            astronomyquestions={astronomyquestions}
+            quizQuestions={quizQuestions}
             score={score}
             timerRef={timerRef}
             navigate={navigate}
@@ -176,7 +190,7 @@ export default function Quiz({ fastmode, database }) {
         ) : (
           <Quizquestions
             slideTimer={slideTimer}
-            astronomyquestions={astronomyquestions}
+            // quizQuestions={quizQuestions}
             currentQuestionIndex={currentQuestionIndex}
             currentquestion={currentquestion}
             isDisabled={isDisabled}
