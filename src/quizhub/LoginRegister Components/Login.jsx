@@ -1,22 +1,32 @@
 import { useState } from "react";
 import axios from "axios";
 import styles from "../quizhub.module.css";
+import Errorcomponent from "../Components/Errorcomponent";
 export default function Login({ setshowLogin, showLogin }) {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordagain, setPasswordagain] = useState("");
   const [MismatchedPassword, setMismatchedPassword] = useState(false);
   const [loginbtn, pressregisterbtn] = useState(false);
+  const [emptyLogin, setEmptylogin] = useState(false);
+  const [incorrectpassword, setincorrectpassword] = useState(false);
+  const [usernotfound, setusernotfound] = useState(false);
 
   function handleSubmit(e) {
-    password == passwordagain ? handleLogin(e) : setMismatchedPassword(true);
+    password == passwordagain
+      ? handleLogin(e)
+      : setMismatchedPassword(true) &
+        setincorrectpassword(false) &
+        setEmptylogin(false);
   }
 
   function handleLogin(e) {
+    console.log(username);
+    console.log(password);
     e.preventDefault();
     const url = "http://localhost/Quizappdatabase/loginandregister.php";
     let fData = new FormData();
-    fData.append("email", email);
+    fData.append("username", username);
     fData.append("password", password);
     fData.append("loginbtn", loginbtn);
     axios
@@ -24,23 +34,30 @@ export default function Login({ setshowLogin, showLogin }) {
       .then((responce) => {
         console.log(responce);
         if (responce.data.status === "loginsuccess") {
-          //   setEmptylogin(false);
-          //   setusernotfound(false);
-          //   setincorrectpassword(false);
+          setEmptylogin(false);
+          setusernotfound(false);
+          setincorrectpassword(false);
+          setMismatchedPassword(false);
           console.log("Login success from react");
-          localStorage.setItem("email", email);
+          localStorage.setItem("username", username);
+          localStorage.setItem("password", password);
+          setUsername("");
+          setPassword("");
+          setPasswordagain("");
         } else if (responce.data.status === "empty") {
-          //   setEmptylogin(true);
+          setEmptylogin(true);
           console.log("Empty");
         } else if (responce.data.status === "incorrectpassword") {
-          //   setusernotfound(false);
-          //   setEmptylogin(false);
-          //   setincorrectpassword(true);
+          setusernotfound(false);
+          setEmptylogin(false);
+          setMismatchedPassword(false);
+          setincorrectpassword(true);
           console.log("Incorrect Password");
         } else if (responce.data.status === "usernotfound") {
-          //   setEmptylogin(false);
-          //   setusernotfound(true);
-          //   setincorrectpassword(false);
+          setEmptylogin(false);
+          setusernotfound(true);
+          setMismatchedPassword(false);
+          setincorrectpassword(false);
           console.log("User not found");
         }
       })
@@ -74,34 +91,47 @@ export default function Login({ setshowLogin, showLogin }) {
           </button>
         </div>
         <input
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           className={styles.userinputfield}
           type="text"
-          placeholder="Email"
+          placeholder="Username"
+          value={username}
         />
         <input
           onChange={(e) => setPassword(e.target.value)}
           className={styles.userinputfield}
           type="text"
           placeholder="Password"
+          value={password}
         />
         <input
           onChange={(e) => setPasswordagain(e.target.value)}
           className={styles.userinputfield}
           type="text"
           placeholder="Confirm Password"
+          value={passwordagain}
         />
-        <span
-          className={MismatchedPassword ? "" : styles.hidden}
-          style={{
-            color: "red",
-            opacity: "0.9",
-            fontSize: "1vw",
-            marginLeft: "4px",
-          }}
-        >
-          Mismatched Password
-        </span>
+        <Errorcomponent
+          condition={emptyLogin}
+          className={styles.showemptymsg}
+          message="Please Input Username and Password"
+        />
+        <Errorcomponent
+          condition={MismatchedPassword}
+          className={styles.mismatch}
+          message="Password Does not match"
+        />
+        <Errorcomponent
+          condition={incorrectpassword}
+          className={styles.showincorrectpassword}
+          message="Incorrect Password"
+        />
+        <Errorcomponent
+          condition={usernotfound}
+          className={styles.showusernotfound}
+          message="Username Does not Exist"
+        />
+
         <p style={{ fontSize: "12px", marginLeft: "4px" }}>
           By signing up, i agree to the Privacy Policy and the terms of
           Services.

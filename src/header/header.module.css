@@ -80,3 +80,13 @@
   width: 15%;
   filter: invert(1);
 }
+
+.signout {
+  background-color: #2e1736;
+  border: solid 1px #5c2e6b;
+  color: #bf8fcc;
+  transform: translateY(64px) translateX(56%);
+  position: absolute;
+  width: 12%;
+  height: 38px;
+}

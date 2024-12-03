@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
+import Signout from "./Components/Signout";
 
 export default function Header({
   showRegister,
@@ -10,10 +11,9 @@ export default function Header({
   setshowLogin,
 }) {
   const navigate = useNavigate();
-  function logAccount() {
-    const username = localStorage.getItem("email");
-    console.log(username);
-  }
+
+  const username = localStorage.getItem("username");
+
   return (
     <div className={styles.header}>
       <div
@@ -31,12 +31,7 @@ export default function Header({
         >
           <path d="M120 120h120v120H120zM0 240h120v120H0zM120 360h120v120H120zM0 0h120v120H0zM360 120h120v120H360zM240 240h120v120H240zM360 360h120v120H360zM240 0h120v120H240z"></path>
         </svg>
-        <h1
-          onClick={() => console.log("hello from header")}
-          className={styles.title}
-        >
-          AnswerIt
-        </h1>
+        <h1 className={styles.title}>AnswerIt</h1>
       </div>
       <div className={styles.searchsection}>
         <input
@@ -47,27 +42,58 @@ export default function Header({
           placeholder="Search"
         />
       </div>
-      <div className={styles.accountsection}>
-        <div className={styles.account}>
-          <button onClick={() => logAccount()}> Log Account </button>
-          <button onClick={() => navigate("/Quizmaker")} className={styles.btn}>
-            Create Quiz
-          </button>
-          <button
-            onClick={() => setshowLogin(!showLogin)}
-            className={styles.btn}
+      <div>
+        {username === "" ? (
+          <div className={styles.accountsection}>
+            <div className={styles.account}>
+              <button
+                onClick={() => setshowLogin(!showLogin)}
+                className={styles.btn}
+              >
+                Login
+              </button>
+              <button
+                onClick={() => setshowRegister(!showRegister)}
+                style={{ backgroundColor: "#9405BD", color: "white" }}
+                className={styles.btn}
+              >
+                Sign Up
+              </button>
+              <img className={styles.icon} src="./images/user.png" alt="" />
+            </div>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              marginRight: "16px",
+            }}
           >
-            Login
-          </button>
-          <button
-            onClick={() => setshowRegister(!showRegister)}
-            style={{ backgroundColor: "#9405BD", color: "white" }}
-            className={styles.btn}
-          >
-            Sign Up
-          </button>
-          <img className={styles.icon} src="./images/user.png" alt="" />
-        </div>
+            <Signout />
+            <button
+              style={{
+                height: "20%",
+                marginTop: "8px",
+                backgroundColor: "#9405BD",
+                marginRight: "12px",
+              }}
+              onClick={() => navigate("/Quizmaker")}
+              className={styles.btn}
+            >
+              Create Quiz
+            </button>
+            <h1 style={{ color: "white", fontSize: "2vw" }}> {username} </h1>
+            <img
+              style={{
+                width: "48px",
+                transform: "translateY(0px)",
+              }}
+              className={styles.icon}
+              src="./images/user.png"
+              alt=""
+            />
+          </div>
+        )}
       </div>
     </div>
   );

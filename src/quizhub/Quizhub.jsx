@@ -27,10 +27,17 @@ export default function Quizhub({
         <Register
           setshowRegister={setshowRegister}
           showRegister={showRegister}
+          setshowLogin={setshowLogin}
+          showLogin={showLogin}
         />
       </div>
       <div className={showLogin ? "" : styles.hidden}>
-        <Login setshowLogin={setshowLogin} showLogin={showLogin} />
+        <Login
+          setshowRegister={setshowRegister}
+          showRegister={showRegister}
+          setshowLogin={setshowLogin}
+          showLogin={showLogin}
+        />
       </div>
       <div style={{ marginTop: "2%" }} className={styles.page}>
         <h2

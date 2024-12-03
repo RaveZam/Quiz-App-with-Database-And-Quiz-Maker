@@ -286,6 +286,7 @@ input:checked + .slider {
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(4px);
+  transition: all 0.5s ease-in-out;
 }
 
 .registerpopup {
@@ -302,4 +303,47 @@ input:checked + .slider {
 
 .hidden {
   display: none;
+}
+
+.errormsg {
+  color: rgb(201, 11, 11);
+  font-weight: 300;
+  white-space: nowrap;
+  display: none;
+}
+
+.showerrormsg {
+  display: block;
+}
+.showemptymsg {
+  display: block;
+}
+
+.showregsuccess {
+  display: block;
+  color: rgba(244, 244, 244, 0.671);
+}
+
+.showinvalidemail {
+  display: block;
+}
+
+.showincorrectpassword {
+  display: block;
+}
+
+.showusernotfound {
+  display: block;
+}
+
+.showemailtaken {
+  display: block;
+}
+.mismatch {
+  display: block;
+}
+
+.showweakpassword {
+  display: block;
+  white-space: wrap;
 }
