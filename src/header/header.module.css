@@ -90,3 +90,7 @@
   width: 12%;
   height: 32px;
 }
+
+.hidden {
+  display: none;
+}

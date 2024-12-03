@@ -44,6 +44,7 @@ export default function Login({ setshowLogin, showLogin }) {
           setUsername("");
           setPassword("");
           setPasswordagain("");
+          window.location.reload();
         } else if (responce.data.status === "empty") {
           setEmptylogin(true);
           console.log("Empty");

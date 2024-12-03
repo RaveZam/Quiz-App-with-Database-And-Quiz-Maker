@@ -12,7 +12,7 @@ export default function Header({
   setshowLogin,
 }) {
   const navigate = useNavigate();
-  const [showsignout, setshowsignout] = useState(true);
+  const [showsignout, setshowsignout] = useState(false);
   const username = localStorage.getItem("username");
 
   return (
@@ -32,7 +32,9 @@ export default function Header({
         >
           <path d="M120 120h120v120H120zM0 240h120v120H0zM120 360h120v120H120zM0 0h120v120H0zM360 120h120v120H360zM240 240h120v120H240zM360 360h120v120H360zM240 0h120v120H240z"></path>
         </svg>
-        <h1 className={styles.title}>AnswerIt</h1>
+        <h1 onClick={() => console.log(username)} className={styles.title}>
+          AnswerIt
+        </h1>
       </div>
       <div className={styles.searchsection}>
         <input
@@ -44,7 +46,7 @@ export default function Header({
         />
       </div>
       <div>
-        {username === "" ? (
+        {username == null ? (
           <div className={styles.accountsection}>
             <div className={styles.account}>
               <button
@@ -94,7 +96,10 @@ export default function Header({
               src="./images/user.png"
               alt=""
             />
-            <div style={showsignout ? { display: "none" } : {}}>
+            <div
+              style={{ position: "absolute", width: "100%" }}
+              className={showsignout ? "" : styles.hidden}
+            >
               <Signout />
             </div>
           </div>
