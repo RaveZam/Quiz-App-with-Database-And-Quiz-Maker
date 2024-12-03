@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 import Signout from "./Components/Signout";
+import { useState } from "react";
 
 export default function Header({
   showRegister,
@@ -11,7 +12,7 @@ export default function Header({
   setshowLogin,
 }) {
   const navigate = useNavigate();
-
+  const [showsignout, setshowsignout] = useState(true);
   const username = localStorage.getItem("username");
 
   return (
@@ -69,7 +70,6 @@ export default function Header({
               marginRight: "16px",
             }}
           >
-            <Signout />
             <button
               style={{
                 height: "20%",
@@ -84,14 +84,19 @@ export default function Header({
             </button>
             <h1 style={{ color: "white", fontSize: "2vw" }}> {username} </h1>
             <img
+              onClick={() => setshowsignout(!showsignout)}
               style={{
                 width: "48px",
                 transform: "translateY(0px)",
+                cursor: "pointer",
               }}
               className={styles.icon}
               src="./images/user.png"
               alt=""
             />
+            <div style={showsignout ? { display: "none" } : {}}>
+              <Signout />
+            </div>
           </div>
         )}
       </div>
