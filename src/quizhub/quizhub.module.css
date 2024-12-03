@@ -299,3 +299,7 @@ input:checked + .slider {
   color: #bf8fcc;
   border: solid 1px #5c2e6b;
 }
+
+.hidden {
+  display: none;
+}

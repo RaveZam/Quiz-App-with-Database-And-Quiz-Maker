@@ -31,6 +31,8 @@ export default function Mainpage({
     };
   }, []);
 
+  const [showRegister, setshowRegister] = useState(false);
+  const [showLogin, setshowLogin] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <>
@@ -50,8 +52,19 @@ export default function Mainpage({
         ""
       )}
       <>
-        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Header
+          setshowRegister={setshowRegister}
+          showRegister={showRegister}
+          setshowLogin={setshowLogin}
+          showLogin={showLogin}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
         <Quizhub
+          setshowLogin={setshowLogin}
+          showLogin={showLogin}
+          setshowRegister={setshowRegister}
+          showRegister={showRegister}
           quizzes={quizzes}
           fastmode={fastmode}
           setfastmode={setfastmode}

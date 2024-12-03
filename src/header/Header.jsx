@@ -1,8 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 
-export default function Header({ searchTerm, setSearchTerm }) {
+export default function Header({
+  showRegister,
+  setshowRegister,
+  searchTerm,
+  setSearchTerm,
+  showLogin,
+  setshowLogin,
+}) {
   const navigate = useNavigate();
+  function logAccount() {
+    const username = localStorage.getItem("email");
+    console.log(username);
+  }
   return (
     <div className={styles.header}>
       <div
@@ -38,11 +49,18 @@ export default function Header({ searchTerm, setSearchTerm }) {
       </div>
       <div className={styles.accountsection}>
         <div className={styles.account}>
+          <button onClick={() => logAccount()}> Log Account </button>
           <button onClick={() => navigate("/Quizmaker")} className={styles.btn}>
             Create Quiz
           </button>
-          <button className={styles.btn}> Login </button>
           <button
+            onClick={() => setshowLogin(!showLogin)}
+            className={styles.btn}
+          >
+            Login
+          </button>
+          <button
+            onClick={() => setshowRegister(!showRegister)}
             style={{ backgroundColor: "#9405BD", color: "white" }}
             className={styles.btn}
           >

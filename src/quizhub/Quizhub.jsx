@@ -4,6 +4,7 @@ import styles from "./quizhub.module.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Register from "./LoginRegister Components/Register";
+import Login from "./LoginRegister Components/Login";
 
 export default function Quizhub({
   setDatabase,
@@ -12,14 +13,25 @@ export default function Quizhub({
   setfastmode,
   database,
   searchTerm,
+  showRegister,
+  setshowRegister,
+  showLogin,
+  setshowLogin,
 }) {
   const filteredQuizzes = quizzes.filter((quiz) =>
     quiz.quizname.toLowerCase().includes(searchTerm.toLowerCase())
   );
   return (
     <>
-      {" "}
-      <Register />
+      <div className={showRegister ? "" : styles.hidden}>
+        <Register
+          setshowRegister={setshowRegister}
+          showRegister={showRegister}
+        />
+      </div>
+      <div className={showLogin ? "" : styles.hidden}>
+        <Login setshowLogin={setshowLogin} showLogin={showLogin} />
+      </div>
       <div style={{ marginTop: "2%" }} className={styles.page}>
         <h2
           style={{

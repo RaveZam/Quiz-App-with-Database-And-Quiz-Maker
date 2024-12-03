@@ -1,46 +1,47 @@
 import { useState } from "react";
 import axios from "axios";
 import styles from "../quizhub.module.css";
-export default function Register({ setshowRegister, showRegister }) {
+export default function Login({ setshowLogin, showLogin }) {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordagain, setPasswordagain] = useState("");
   const [MismatchedPassword, setMismatchedPassword] = useState(false);
-  const [registerbtn, pressregisterbtn] = useState(false);
+  const [loginbtn, pressregisterbtn] = useState(false);
 
   function handleSubmit(e) {
-    password == passwordagain ? handleRegister(e) : setMismatchedPassword(true);
+    password == passwordagain ? handleLogin(e) : setMismatchedPassword(true);
   }
 
-  function handleRegister(e) {
-    setMismatchedPassword(false);
+  function handleLogin(e) {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
     const url = "http://localhost/Quizappdatabase/loginandregister.php";
     let fData = new FormData();
     fData.append("email", email);
-    fData.append("username", username);
     fData.append("password", password);
-    fData.append("registerbtn", registerbtn);
+    fData.append("loginbtn", loginbtn);
     axios
       .post(url, fData)
       .then((responce) => {
-        if (responce.data.status === "emailavail") {
-          console.log("Email Avail");
-        } else if (responce.data.status === "emailtaken") {
-          console.log("emailtaken");
-          //   setEmailtaken(true);
-        } else if (responce.data.status === "invalidemail") {
-          console.log("invalidemail");
-          setinvalidEmail(true);
-        } else if (responce.data.status === "weakpassword") {
-          console.log("weakpassword");
-        } else if (responce.data.status === "strongpassword") {
-          console.log("weakpassword");
-        } else if (responce.data.status === "registersuccess") {
-          console.log("registersuccess");
+        console.log(responce);
+        if (responce.data.status === "loginsuccess") {
+          //   setEmptylogin(false);
+          //   setusernotfound(false);
+          //   setincorrectpassword(false);
+          console.log("Login success from react");
+          localStorage.setItem("email", email);
+        } else if (responce.data.status === "empty") {
+          //   setEmptylogin(true);
+          console.log("Empty");
+        } else if (responce.data.status === "incorrectpassword") {
+          //   setusernotfound(false);
+          //   setEmptylogin(false);
+          //   setincorrectpassword(true);
+          console.log("Incorrect Password");
+        } else if (responce.data.status === "usernotfound") {
+          //   setEmptylogin(false);
+          //   setusernotfound(true);
+          //   setincorrectpassword(false);
+          console.log("User not found");
         }
       })
       .catch((error) => console.log(error));
@@ -55,9 +56,9 @@ export default function Register({ setshowRegister, showRegister }) {
             justifyContent: "center",
           }}
         >
-          <h1>Register</h1>
+          <h1>Login</h1>
           <button
-            onClick={() => setshowRegister()}
+            onClick={() => setshowLogin(!showLogin)}
             style={{
               padding: "4px",
               margin: "4px",
@@ -77,12 +78,6 @@ export default function Register({ setshowRegister, showRegister }) {
           className={styles.userinputfield}
           type="text"
           placeholder="Email"
-        />
-        <input
-          onChange={(e) => setUsername(e.target.value)}
-          className={styles.userinputfield}
-          type="text"
-          placeholder="Username"
         />
         <input
           onChange={(e) => setPassword(e.target.value)}
@@ -112,7 +107,7 @@ export default function Register({ setshowRegister, showRegister }) {
           Services.
         </p>
         <button onClick={(e) => handleSubmit(e)} className={styles.regbutton}>
-          Register
+          Login
         </button>
       </div>
     </div>
