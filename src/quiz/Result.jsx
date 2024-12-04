@@ -11,6 +11,8 @@ export default function Result({ navigate, quizQuestions, score, timerRef }) {
   const correctpercentage = (score / quizQuestions.length) * 100;
   const [quizpassed, setquizpassed] = useState(false);
 
+  console.log(score);
+
   useEffect(() => {
     score > quizQuestions.length / 2 ? setquizpassed(true) : "";
   }, []);

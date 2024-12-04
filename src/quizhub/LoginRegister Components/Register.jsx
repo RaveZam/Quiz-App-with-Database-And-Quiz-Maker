@@ -7,80 +7,74 @@ export default function Register({ setshowRegister, showRegister }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordagain, setPasswordagain] = useState("");
-  const [MismatchedPassword, setMismatchedPassword] = useState(false);
   const [registerbtn, pressregisterbtn] = useState(false);
-
   const [registersuccess, setregisterSuccess] = useState(false);
-  const [emptyLogin, setEmptylogin] = useState(false);
-  const [invalidEmail, setinvalidEmail] = useState(false);
-  const [usernotfound, setusernotfound] = useState(false);
-  const [emailTaken, setEmailtaken] = useState(false);
-  const [usernameTaken, setUsernametaken] = useState(false);
-  const [weakpassword, setweakpassword] = useState(false);
-  const [emptyinputs, setemptyinputs] = useState(false);
+
+  const [EverythingIsEmpty, setEverythingIsEmpty] = useState(false);
+
+  const [InvalidEmail, setInvalidEmail] = useState(false);
+  const [EmailTaken, setEmailTaken] = useState(false);
+  const [UsernameTaken, setUsernameTaken] = useState(false);
+  const [WeakPassword, setWeakPassword] = useState(false);
+
+  const [MismatchedPassword, setMismatchedPassword] = useState(false);
 
   function handleSubmit(e) {
-    email && password && username && passwordagain == ""
-      ? ""
-      : setemptyinputs(true);
-    password == passwordagain
-      ? handleRegister(e)
-      : setMismatchedPassword(true) &
-        setemptyinputs(false) &
-        setUsernametaken(false);
+    if (
+      email === "" ||
+      username === "" ||
+      password === "" ||
+      passwordagain === ""
+    ) {
+      setEverythingIsEmpty(true);
+    } else {
+      setEverythingIsEmpty(false);
+      handleRegister(e);
+    }
   }
 
   function handleRegister(e) {
-    setMismatchedPassword(false);
-    setemptyinputs(false);
+    setInvalidEmail(false);
+    setEmailTaken(false);
+    setUsernameTaken(false);
     e.preventDefault();
-    const url = "http://localhost/Quizappdatabase/loginandregister.php";
-    let fData = new FormData();
-    fData.append("email", email);
-    fData.append("username", username);
-    fData.append("password", password);
-    fData.append("registerbtn", registerbtn);
-    axios
-      .post(url, fData)
-      .then((responce) => {
-        if (responce.data.status === "emailtaken") {
-          console.log("emailtaken");
-          setEmailtaken(true);
-          setweakpassword(false);
-        } else if (responce.data.status === "invalidemail") {
-          console.log("invalidemail");
-          setinvalidEmail(true);
-          setweakpassword(false);
-        } else if (responce.data.status === "emptyfields") {
-          console.log("emptyfields");
-          console.log(username);
-          console.log(password);
-          console.log(password);
-          setEmailtaken(false);
-          setweakpassword(false);
-          setemptyinputs(true);
-        } else if (responce.data.status === "weakpassword") {
-          setweakpassword(true);
-          console.log("weakpassword");
-        } else if (responce.data.status === "usernametaken") {
-          setUsernametaken(true);
-          setEmailtaken(false);
-          console.log("username taken");
-        } else if (responce.data.status === "registersuccess") {
-          console.log("registersuccess");
-          localStorage.setItem("email", email);
-          setMismatchedPassword(false);
-          setweakpassword(false);
-          setUsernametaken(false);
-          setEmail("");
-          setUsername("");
-          setPassword("");
-          setPasswordagain("");
-        }
-      })
-      .catch((error) => console.log(error));
-  }
 
+    if (password !== passwordagain) {
+      setMismatchedPassword(true);
+    } else {
+      setMismatchedPassword(false);
+      const url = "http://localhost/Quizappdatabase/loginandregister.php";
+      let fData = new FormData();
+      fData.append("email", email);
+      fData.append("username", username);
+      fData.append("password", password);
+      fData.append("registerbtn", registerbtn);
+      axios
+        .post(url, fData)
+        .then((responce) => {
+          if (responce.data.status === "invalidemail") {
+            setInvalidEmail(true);
+            console.log("Invalid Email");
+          } else if (responce.data.status === "emailtaken") {
+            setInvalidEmail(false);
+            setEmailTaken(true);
+          } else if (responce.data.status === "usernametaken") {
+            setEmailTaken(false);
+            setUsernameTaken(true);
+          } else if (responce.data.status === "weakpassword") {
+            setUsernameTaken(false);
+            setWeakPassword(true);
+          } else if (responce.data.status === "registersuccess") {
+            setWeakPassword(false);
+            localStorage.setItem("username", username);
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+            window.location.reload();
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  }
   return (
     <div className={styles.registerpopupcontainer}>
       <div style={{ gap: " 12px" }} className={styles.registerpopup}>
@@ -140,39 +134,34 @@ export default function Register({ setshowRegister, showRegister }) {
           value={passwordagain}
         />
         <Errorcomponent
-          condition={MismatchedPassword}
-          className={styles.mismatch}
-          message="Password Does not match"
-        />
-        <Errorcomponent
-          condition={registersuccess}
-          className={styles.showregsuccess}
-          message="Account has been Created, Please Proceed to Login Window!"
-        />
-        <Errorcomponent
-          condition={usernameTaken}
-          className={styles.mismatch}
-          message="Username is Taken"
-        />
-        <Errorcomponent
-          condition={emptyinputs}
+          condition={EverythingIsEmpty}
           className={styles.showinvalidemail}
           message="Please Enter All Details"
         />
         <Errorcomponent
-          condition={invalidEmail}
+          condition={InvalidEmail}
           className={styles.showinvalidemail}
-          message="Invalid Email"
+          message="Invalid Email Format"
         />
         <Errorcomponent
-          condition={emailTaken}
-          className={styles.showemailtaken}
-          message="Email Already Exists"
+          condition={EmailTaken}
+          className={styles.showinvalidemail}
+          message="Email is Already Taken"
         />
         <Errorcomponent
-          condition={weakpassword}
-          className={styles.showweakpassword}
-          message="Password must contain atleast one Uppercase,Lowercase and Number"
+          condition={UsernameTaken}
+          className={styles.showinvalidemail}
+          message="Username is Already Taken"
+        />
+        <Errorcomponent
+          condition={MismatchedPassword}
+          className={styles.showinvalidemail}
+          message="Password Does Not Match"
+        />
+        <Errorcomponent
+          condition={WeakPassword}
+          className={styles.showinvalidemail}
+          message="Password Must Contain Atleast One Uppercase,Lowercase and a Number"
         />
         <p style={{ fontSize: "12px", marginLeft: "4px" }}>
           By signing up, i agree to the Privacy Policy and the terms of

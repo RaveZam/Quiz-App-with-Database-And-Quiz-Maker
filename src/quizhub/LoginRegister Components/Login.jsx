@@ -41,9 +41,7 @@ export default function Login({ setshowLogin, showLogin }) {
           console.log("Login success from react");
           localStorage.setItem("username", username);
           localStorage.setItem("password", password);
-          setUsername("");
-          setPassword("");
-          setPasswordagain("");
+
           window.location.reload();
         } else if (responce.data.status === "empty") {
           setEmptylogin(true);

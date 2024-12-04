@@ -11,7 +11,7 @@ import fail from "/sounds/fail.mp3";
 import Preloader from "../preloaders/Preloader";
 
 export default function Quiz({ fastmode, database }) {
-  //This part is only for the preloader
+  // This part is only for the preloader
   const [loading, isLoading] = useState(true);
   const [opacity, setOpacity] = useState(1);
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function Quiz({ fastmode, database }) {
 
   const navigate = useNavigate();
 
-  //This Part Saves what quiz is on refresh as a string
+  // This Part Saves what quiz is on refresh as a string
   useEffect(() => {
     if (database) {
       localStorage.setItem("database", database);
@@ -36,13 +36,13 @@ export default function Quiz({ fastmode, database }) {
 
   const url = "http://localhost/Quizappdatabase/fetch.php";
   useEffect(() => {
-    const storedDatabase = localStorage.getItem("database"); //finds the database string where it exists in the quizdatabase table.
+    const storedDatabase = localStorage.getItem("database"); // finds the database string where it exists in the quiz database table.
     let fData = new FormData();
     fData.append("database", storedDatabase);
     axios
       .post(url, fData)
       .then((response) => {
-        setquizQuestions(response.data); //this automatically receives the response that is encoded from php.
+        setquizQuestions(response.data); // this automatically receives the response that is encoded from php.
       })
       .catch((error) => {
         console.log("Error posting data:", error);
@@ -59,7 +59,7 @@ export default function Quiz({ fastmode, database }) {
 
   const [isDisabled, setDisabled] = useState(false);
 
-  const [optionClicked, setOptionClicked] = useState(""); //Records the Selected Option to compare the right answer
+  const [optionClicked, setOptionClicked] = useState(""); // Records the Selected Option to compare the right answer
 
   const successsound = useRef(null);
   const failsound = useRef(null);
@@ -70,7 +70,7 @@ export default function Quiz({ fastmode, database }) {
   const [slideTimer, setSlideTimer] = useState(slidetimenumber);
   const timerRef = useRef();
 
-  //The Timer Function
+  // The Timer Function
   const startTimer = () => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -98,19 +98,50 @@ export default function Quiz({ fastmode, database }) {
 
   // *************************************************** TIMER FUNCTION***************************************************
 
+  // *************************************************** UPLOAD SCORE ***************************************************
+
+  const UploadScore = (finalscore) => {
+    if (finalscore > 0) {
+      const username = localStorage.getItem("username");
+      const TheDatabase = localStorage.getItem("database");
+      console.log(username, TheDatabase);
+      const ScoreUrl = "http://localhost/Quizappdatabase/uploadscore.php";
+      let scoreData = new FormData();
+      scoreData.append("username", username);
+      console.log(
+        finalscore + ": This is the final score before inserting to SQL"
+      );
+      scoreData.append("score", finalscore); // Use finalscore here
+      scoreData.append("TheDatabase", TheDatabase);
+      axios
+        .post(ScoreUrl, scoreData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log("Error posting data:", error);
+        });
+    } else {
+      console.log("dodge first tick");
+    }
+  };
+
+  // *************************************************** UPLOAD SCORE ***************************************************
+
   // *************************************************** BUTTON FUNCTION**************************************************
 
   function checkcorrectanswer(option) {
-    clearInterval(timerRef.current); //pauses the timer when user picks an option
-    setDisabled(true); //disable buttons while a question is picked
+    clearInterval(timerRef.current); // pauses the timer when user picks an option
+    setDisabled(true); // disable buttons while a question is picked
 
     if (currentQuestionIndex == quizQuestions.length - 1) {
       setTimeout(() => {
+        UploadScore(score); // Pass the updated score here
         setFinished(true);
       }, 6000);
     }
 
-    //Checks if the correct answer is chosen depending on the option that is selectedx
+    // Checks if the correct answer is chosen depending on the option that is selected
     if (option == currentquestion.correctanswer) {
       setScore(score + 1);
       setTimeout(() => {
@@ -143,10 +174,12 @@ export default function Quiz({ fastmode, database }) {
     }, 3000);
   }
   // *************************************************** BUTTON FUNCTION***************************************************
+
   const [timerpopup, settimerpopup] = useState(true);
-  const [timer, setTimer] = useState(6);
+  const [timer, setTimer] = useState(1);
   const [canspeak, setcanspeak] = useState(false);
-  //CountDown
+
+  // CountDown
   if (timer >= 0) {
     setTimeout(() => {
       setTimer(timer - 1);
@@ -156,6 +189,14 @@ export default function Quiz({ fastmode, database }) {
     setcanspeak(true);
     startTimer();
   }
+
+  // *************************************************** USE EFFECT TO UPLOAD SCORE ***************************************************
+
+  useEffect(() => {
+    if (finish) {
+      UploadScore(score); // Upload score when finish is true
+    }
+  }, [score, finish]);
 
   return (
     <>
@@ -190,7 +231,6 @@ export default function Quiz({ fastmode, database }) {
         ) : (
           <Quizquestions
             slideTimer={slideTimer}
-            // quizQuestions={quizQuestions}
             currentQuestionIndex={currentQuestionIndex}
             currentquestion={currentquestion}
             isDisabled={isDisabled}

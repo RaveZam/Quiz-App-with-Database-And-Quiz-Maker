@@ -172,6 +172,7 @@ export default function Quizmaker() {
           <button
             onClick={() => {
               navigate("/");
+              window.location.reload();
             }}
             className={styles.savebtn}
           >
