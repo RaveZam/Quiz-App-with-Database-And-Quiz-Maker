@@ -121,25 +121,30 @@
 }
 
 .resultscreen {
-  font-size: 1.2vw;
-  width: 50%;
-  height: 50vh;
+  font-size: 1.1vw;
+  width: 45%;
+
+  height: 55vh;
   margin: auto;
   margin-top: 50px;
   background-color: rgba(255, 255, 255, 0.971);
   border-radius: 12px;
-  padding: 20px;
+  padding: 12px;
+  padding-right: 2%;
   text-align: center;
   z-index: 3;
   backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .resultscreen h1:first-child {
   font-size: 2vw;
 }
 .resultscreen h1:nth-child(2) {
-  font-size: 3vw;
-  color: #d83f55;
+  font-size: 1.5vw;
 }
 .resultscreen h1:nth-child(3) {
   font-size: 2vw;
@@ -152,10 +157,10 @@
 }
 .btn {
   position: relative;
-  margin-top: 2%;
+  margin-top: 4%;
   padding: 8px 30px;
   border-radius: 12px;
-
+  width: 30%;
   background-color: rgb(248, 248, 248);
   overflow: hidden;
   z-index: 10 !important;
@@ -185,11 +190,10 @@
 }
 
 .scorescontainer {
-  /* background-color: red; */
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 4%;
-  margin: 10px;
+  gap: 8px;
 }
 .iconimgcontainer {
   flex-grow: 1;
@@ -204,10 +208,8 @@
 }
 
 .txtcontainer {
-  flex-direction: column;
   text-align: left;
-  padding: 4%;
-  font-size: 1.2vw;
+  padding: 12px;
   align-self: center;
 }
 
@@ -219,15 +221,13 @@
 .correctanswers {
   display: flex;
   background-color: #25a782;
-  width: 30%;
-  height: 4rem;
+  height: 3rem;
   border-radius: 20px;
 }
 .incorrectanswers {
   display: flex;
   background-color: #d83f55;
-  width: 30%;
-  height: 4rem;
+  height: 3rem;
   border-radius: 20px;
 }
 
@@ -268,4 +268,12 @@
   right: 0;
   bottom: 0;
   transform: translateX(-30%) translateY(10%);
+}
+
+.leaderboards {
+  /* border-left: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  text-align: center;
 }

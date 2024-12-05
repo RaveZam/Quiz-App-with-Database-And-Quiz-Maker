@@ -1,60 +1,27 @@
-To Do list: 
+move Searchbar to the right 
 
-Add Preloaders then Loading Screens
-
-Adjust Fonts for 8-bit style ingame
-
-fix found bugs such as failed loading screen. 
-
-add login/register feature. have username display its profile pic at the top left corner
-
-add a customize profile screen 
-
-fix bugs regarding sessions 
-
-add a leaderboards function that displays the profile pic and username of the previous 
-quiz takers in descending format. atleast 5 players
+result screen column type.
 
 
-Advanced Database Codes
+
+CREATE TABLE `db_zamora`. (`employee_id` INT NOT NULL AUTO_INCREMENT , `first_name` VARCHAR(50) NOT NULL ,
+`last_name` VARCHAR(50) NOT NULL , `salary_decimal` DECIMAL(10,2) NOT NULL ,
+`hire_date` DATE NOT NULL , PRIMARY KEY (`employee_id`))
 
 
-FROM tbl_enrolment AS e 
+UPDATE `employees` SET `department_id`='3' WHERE `employee_id` = 1
+INSERT INTO `employees`(`first_name`, `last_name`, `salary_decimal`, `hire_date`) VALUES ('John','Doe','75000','2023-01-15')
 
-inner Join tbl_schedule AS c
+CREATE TABLE `db_zamora`.`departments` (`department_id` INT NOT NULL AUTO_INCREMENT , 
+`department_name` VARCHAR(100) NOT NULL , PRIMARY KEY (`department_id`)) ENGINE = InnoDB;
 
-ON e.subjectid = s.id
-
-"CONCAT( P.LNAME, ' ', 'P.FIRSTNAME')"
-
-SUBSTRING(p.fname. 1,1) (Choose only the First name AND then how many characaters to splice)
-
-UCASE() to make everything inside upper case
-
+INSERT INTO `departments`(`department_id`, `department_name`) VALUES ('3','Sales')
 
 SELECT 
-    
-    CONCAT (p.lname, ' '. 'p.firstname ) AS name (optional if you want to arrange certain strings) i think (AS is important)
-    p.lname AS name, (you can use AS anywhere just to alias the names for shortcut)
-    p.gender,
-    pl.code
-
-FROM, `xyz_profile` AS p 
-INNER JOIN xyz_plantilla AS p1 ON p.ID = p1.iD
-
-INNER JOIN xyz_specialization AS S ON p.fk_specialization_id = s.id (can also )
-
-ORDER BY p.lname;
-
-
-SELECT 
-
-//statements
-
-
-FROM isu_student AS s
-
-INNER JOIN tbl_Something AS t ON s.something = t.something
-
-
+e.first_name,
+e.last_name,
+d.department_name
+FROM employees AS e 
+LEFT JOIN departments AS d 
+ON e.department_id = d.department_id
 
