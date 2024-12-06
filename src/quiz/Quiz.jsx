@@ -192,9 +192,11 @@ export default function Quiz({ fastmode, database }) {
 
   // *************************************************** USE EFFECT TO UPLOAD SCORE ***************************************************
 
+  const [readyToFetch, setreadyToFetch] = useState(false);
   useEffect(() => {
     if (finish) {
-      UploadScore(score); // Upload score when finish is true
+      UploadScore(score);
+      setreadyToFetch(true);
     }
   }, [score, finish]);
 
@@ -219,10 +221,10 @@ export default function Quiz({ fastmode, database }) {
         <audio ref={successsound} src={success} preload="auto" />
         <audio ref={failsound} src={fail} preload="auto" />
         <Timerscreen timerpopup={timerpopup} timer={timer} />
-
         <Ingameheader />
         {finish || currentQuestionIndex == quizQuestions.length ? (
           <Result
+            readyToFetch={readyToFetch}
             quizQuestions={quizQuestions}
             score={score}
             timerRef={timerRef}

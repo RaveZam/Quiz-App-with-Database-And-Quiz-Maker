@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Quiz from "../quiz/Quiz";
 import axios from "axios";
+import AlertDialog from "../header/Components/AlertDialog";
 
 export default function QuizTopics({
   fastmode,
@@ -31,8 +32,25 @@ export default function QuizTopics({
   const longText = quizdesc;
   const maxLength = 30;
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  function checkIfLoggedIn() {
+    let username = localStorage.getItem("username");
+    console.log(username);
+    if (username != null) {
+      setphpdatabase() & navigate("/Quiz");
+    } else if (username === null) {
+      handleClickOpen();
+    }
+  }
+
   return (
     <>
+      <AlertDialog setOpen={setOpen} open={open} />
       <div className={styles.quizcontainer}>
         <div onClick={() => showprestart()} className={styles.quizbg}>
           <img className={styles.quizbgimg} src={quizbg} alt="" />
@@ -123,7 +141,7 @@ export default function QuizTopics({
                 </label>
               </div>
               <button
-                onClick={() => setphpdatabase() & navigate("/Quiz")}
+                onClick={() => checkIfLoggedIn()}
                 className={styles.startbtn}
               >
                 Start Quiz
