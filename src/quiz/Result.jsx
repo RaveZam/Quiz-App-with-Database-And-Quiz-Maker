@@ -13,6 +13,7 @@ export default function Result({
   score,
   timerRef,
   readyToFetch,
+  setreadyToFetch,
 }) {
   const incorrectanswers = quizQuestions.length - score;
   const incorrectanswerpercentage =
@@ -37,6 +38,8 @@ export default function Result({
         .post(url, fData)
         .then((responce) => setLeaderboards(responce.data))
         .catch((error) => console.log(error));
+      setreadyToFetch(false);
+      console.log("Setted Ready to Fetch Back To False");
     } else {
       null;
     }

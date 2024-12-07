@@ -104,7 +104,9 @@ export default function Quiz({ fastmode, database }) {
     if (finalscore > 0) {
       const username = localStorage.getItem("username");
       const TheDatabase = localStorage.getItem("database");
-      console.log(username, TheDatabase);
+      setreadyToFetch(true);
+      console.log("Setted the Ready to Fetch State to true");
+
       const ScoreUrl = "http://localhost/Quizappdatabase/uploadscore.php";
       let scoreData = new FormData();
       scoreData.append("username", username);
@@ -136,7 +138,7 @@ export default function Quiz({ fastmode, database }) {
 
     if (currentQuestionIndex == quizQuestions.length - 1) {
       setTimeout(() => {
-        UploadScore(score); // Pass the updated score here
+        // UploadScore(score); // Pass the updated score here
         setFinished(true);
       }, 6000);
     }
@@ -196,7 +198,6 @@ export default function Quiz({ fastmode, database }) {
   useEffect(() => {
     if (finish) {
       UploadScore(score);
-      setreadyToFetch(true);
     }
   }, [score, finish]);
 
@@ -225,6 +226,7 @@ export default function Quiz({ fastmode, database }) {
         {finish || currentQuestionIndex == quizQuestions.length ? (
           <Result
             readyToFetch={readyToFetch}
+            setreadyToFetch={setreadyToFetch}
             quizQuestions={quizQuestions}
             score={score}
             timerRef={timerRef}
