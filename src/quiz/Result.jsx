@@ -17,7 +17,9 @@ export default function Result({
   const incorrectanswers = quizQuestions.length - score;
   const incorrectanswerpercentage =
     (incorrectanswers / quizQuestions.length) * 100;
+  const formattedIncorrectPercentage = incorrectanswerpercentage.toFixed(2);
   const correctpercentage = (score / quizQuestions.length) * 100;
+  const formattedCorrectPercentage = correctpercentage.toFixed(2);
   const [quizpassed, setquizpassed] = useState(false);
 
   const username = localStorage.getItem("username");
@@ -91,7 +93,10 @@ export default function Result({
                   <span style={{ fontSize: "0.9vw" }}>
                     {score} Correct answers
                   </span>
-                  <span style={{ fontSize: "1vw" }}> {correctpercentage}%</span>
+                  <span style={{ fontSize: "1vw" }}>
+                    {" "}
+                    {formattedCorrectPercentage}%
+                  </span>
                 </div>
               </div>
               <div className={styles.incorrectanswers}>
@@ -108,7 +113,7 @@ export default function Result({
                   </span>
                   <span style={{ fontSize: "1vw" }}>
                     {" "}
-                    {incorrectanswerpercentage}%
+                    {formattedIncorrectPercentage}%
                   </span>
                 </div>
               </div>

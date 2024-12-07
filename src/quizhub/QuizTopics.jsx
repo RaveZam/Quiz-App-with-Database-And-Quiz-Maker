@@ -58,7 +58,7 @@ export default function QuizTopics({
         </div>
         <div className={styles.quiztxtdescription}>
           <h1
-            style={{ fontWeight: "300", color: "white", textWrap: "nowrap" }}
+            style={{ fontWeight: "400", color: "white", fontSize: "24px" }}
             className={styles.quiztitle}
           >
             {quizname}
