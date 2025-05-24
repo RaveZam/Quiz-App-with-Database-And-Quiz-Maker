@@ -21,8 +21,6 @@ Users can explore a wide variety of quizzes created by other users, covering dif
 Colorful, Interactive Design
 The app features a vibrant and playful UI inspired by popular quiz platforms to make every session feel fun and engaging.
 
-![quizappaa](https://res.cloudinary.com/dcdgu2fxc/image/upload/v1748099628/462640470_1292214035241044_6240204308729014709_n_dg51t6.png)
-
 Leaderboards and Friendly Competition
 Users can track their scores on public or private leaderboards, encouraging healthy competition and replayability.
 
